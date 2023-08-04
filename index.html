@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+</head>
+<body>
+    <header><h1>Heading</h1></header>
+    <div class="list-blog">
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus vitae repudiandae possimus illo commodi voluptatem quae quaerat repellendus, excepturi, doloremque officiis, aliquid ad? Animi dicta cum sunt, minima debitis voluptas?</p>
+    </div>
+    <div id="app">
+        <!-- template syntax trong vue -->
+        <!-- data -->
+        <h2>{{ title }}</h2>
+
+        <!-- methods -->
+        <h2>{{ say("world") }}</h2>
+    </div>
+
+    <!-- data binding: rang buoc dl -->
+    <div id="app2">
+        <h3>
+            <!-- doi voi cac html attribute ko dc dung "{{ url }}" vi no se hieu la 1 chuoi, phai rang buoc v-bind: thi no moi hieu url la 1 bien(luu y ko can {{  }} ) -->
+            <a v-bind:href="url" :target="target">{{ title }}</a>
+        </h3>
+        <div class="content">
+            <!-- {{  }} chi co the xu ly cac bieu thuc JS don gian, voi cac bieu thuc phuc tap thi phai viet ham xu ly -->
+            <p>{{ formatPrice() }}</p>
+
+            {{ check ? "left" : "right" }}
+        </div>
+    </div>
+    <footer><h2>footer</h2></footer>
+
+    <script src="./main.js"></script>
+</body>
+</html>
