@@ -13,7 +13,7 @@ var vueInstance = new Vue({
 
 
 // he thong phan ung: Reactivity
-// giam sat moi thay doi cua du lieu trong vue instance va tu render ra website
+// giam sat moi thay doi cua du lieu(data) trong vue instance va tu render ra website
 setTimeout(() => {
     vueInstance.title = "new sieurom";
 }, 3000);

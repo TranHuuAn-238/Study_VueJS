@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events(v-on:) in Vue</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: relative;
+        }
+
+        .box-2 {
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+            right: 0;
+            top: 0;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>Count: {{ counter }}</h1>
+
+        <!-- su dung ca tham so event($event) va tham so tu chon -->
+        <button v-on:click="handleClick(5, $event)">Click</button>
+        <div class="box" @mousemove="handleMouseMove">
+            <p>ClientX: {{ clientX }}</p>
+            <p>ClientY: {{ clientY }}</p>
+
+            <!-- event modifiers, vd: @mousemove.stop (stopPropagation) -->
+            <div class="box-2" @mousemove.stop="handleMouseMoveChild">
+            </div>
+
+            <!-- key modifiers: thuong dung trong cac the input, de bat su kien khi nhan mot hoac to hop nut bat ky tren ban phim ma van kich hoat dc su kien, vd: <input v-on:keyup.enter="submit"> -->
+        </div>
+
+        <!-- handle form trong vue v-on:submit + event.preventDefault -->
+        <form action="./server.php" v-on:submit.prevent="handleSubmitForm">
+            <label for="">First name</label>
+            <input type="text" name="firstName"> <br>
+            <label for="">Email</label>
+            <input type="email" name="email"> <br>
+            <input type="submit" value="Register">
+        </form>
+    </div>
+z
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            counter: 0,
+            clientX: 0,
+            clientY: 0
+        },
+        methods: {
+            handleClick(number, event) {
+                console.log(event);
+                this.counter += number;
+            },
+            handleMouseMove(e) {
+                console.log(e);
+                this.clientX = e.clientX;
+                this.clientY = e.clientY;
+            },
+            handleSubmitForm(e) {
+                console.log(e);
+                // e.preventDefault();
+            },
+            handleMouseMoveChild(e) {
+                // ngan chan su kien cua phan tu con lan toa ra ca phan tu cha
+                // e.stopPropagation();
+                console.log("handleMouseMoveChild", e.target);
+            }
+        }
+    })
+</script>
+</body>
+</html>

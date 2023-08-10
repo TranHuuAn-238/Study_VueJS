@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two way bindings and Class and Style</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+    <style>
+        .demo {
+            height: 150px;
+            width: 150px;
+            background-color: yellow;
+        }
+
+        .active {
+            height: 150px;
+            width: 150px;
+            background-color: green;
+        }
+
+        .error {
+            height: 150px;
+            width: 150px;
+            background-color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Rang buoc du lieu 2 chieu</h1>
+    <!-- su dung directive: v-model -->
+
+    <div id="app">
+        <!-- luu y trong binding css phai noi chuoi voi data neu khong vue se hieu nham la ham, VD: <div :style="{ backgroundImage: url(bg)}"> => SAI -->
+        <!-- <div :style="{ backgroundImage: 'url(' + bg + ')'}"> -->
+        <!-- <div :style="{ backgroundImage: background}"> -->
+        <div :style="objectStyle">
+            <h2>First Name = {{ firstName }}</h2>
+            <p>{{ about }}</p>
+            <!-- tu duy thong thuong(~reactjs, angular) -->
+            <!-- <input v-on:keyup="handleKeyup" type="text" placeholder="Enter firstName"> -->
+
+            <!-- sd v-model -->
+            <!-- du lieu nhap vao the input se duoc tu dong rang buoc vao bien firstName trong doi tuong vue, tuong tu moi lan bien firstName thay doi cung se tu dong rang buoc vao value cua the input -->
+            <input v-model="firstName" type="text" placeholder="Enter firstName">
+            <br><br>
+            <textarea v-model="about" cols="30" rows="10"></textarea>
+
+            <br><br>
+            <!-- class, style binding -->
+            <!-- c1: sd chi thi v-bind nhu binh thuong -->
+            <!-- <div v-bind:class="'demo-' + textClass + ' error'" ></div> -->
+
+            <!-- c2: sd object syntax, voi key la ten class se hien thi, value la true/false quyet dinh co hien thi class do hay khong -->
+            <!-- <div class="demo" v-bind:class="{ active: isActive, error: isError }" ></div> -->
+            <!-- hoac viet computed return object roi truyen vao nhu truyen data binh thuong -->
+            <div class="demo" v-bind:class="objClass"></div>
+            <button @click="changeActive">Active</button>
+            <button @click="changeError">Error</button>
+
+            <!-- c3: sd array syntax, cach nay it dung, sd object syntax la du -->
+
+
+            <!-- voi binding css giong nhu binding class: thuong sd object syntax voi key la thuoc tinh css, value la gia tri cua thuoc tinh do, luu y trong object nay key phai duoc chuyen ve camel case. vd: font-size => fontSize -->
+            <hr>
+            <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">
+                Test style bindings
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                firstName: 'an',
+                about: '',
+                textClass: 'active',
+
+                isActive: true,
+                isError: false,
+
+                activeColor: 'red',
+                fontSize: 20,
+                bg: 'https://cdn.corporate.walmart.com/dims4/WMT/f7a8313/2147483647/strip/true/crop/1920x1080+0+0/resize/1200x675!/quality/90/?url=https%3A%2F%2Fcdn.corporate.walmart.com%2F7b%2F66%2F142c151b4cd3a19c13e1ca65f193%2Fbusinessfornature-banner.png'
+            },
+            methods: {
+                handleKeyup(e) {
+                    console.log(e.target.value);
+                    this.firstName = e.target.value;
+                },
+                changeActive() {
+                    this.isActive = !this.isActive;
+                },
+                changeError() {
+                    this.isError = !this.isError;
+                }
+            },
+            computed: {
+                objClass: function () {
+                    return {
+                        active: this.isActive,
+                        error: this.isError
+                    };
+                },
+                background() {
+                    return 'url(' + this.bg + ')';
+                },
+                objectStyle() {
+                    return {
+                        backgroundImage: 'url(' + this.bg + ')',
+                        margin: '10px',
+                        paddingLeft: '30px'
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

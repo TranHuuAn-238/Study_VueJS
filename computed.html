@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conputed</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <p>{{ message }}</p>
+        <p>{{ reversedMessage() }}</p>
+        <p>{{ reversedMessage2 }}</p>
+        <hr>
+
+        <button @click="a++">A + 1</button>
+        <button @click="b++">B + 1</button>
+
+        <br>Res:
+        <!-- <p>Num(10) + A = {{ addA() }}</p>
+        <p>Num(10) + B = {{ addB() }}</p> -->
+        <p>Num(10) + A = {{ addA2 }}</p>
+        <p>Num(10) + B = {{ addB2 }}</p>
+
+        <!-- ve syntax: methods khi sd co loi goi ham (), computed thi ko can, con dinh nghia trong doi tuong vue thi giong nhau -->
+
+        <!-- ve cach su dung: methods, khi co bat ky 1 su thay doi nao thi vuejs se tu render lai template(~ load lai temnplate) va khi no gap lời goi ham se luon luon chay vao ham do -> ca addA() va addB() deu duoc chay vao -->
+        <!-- ve cach su dung: computed chi DUOC THUC THI khi du lieu trong doi tuong vue co su thay doi(data thay doi) => tang hieu suat hon methods -->
+
+        <!-- method: nen tinh toan voi nhung du lieu ko phai data -->
+        <!-- computed: tinh toan voi data (tuc nhung du lieu co san cua doi tuong vue) -->
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: "hello world",
+                a: 0,
+                b: 0,
+                number: 10
+            },
+            methods: {
+                reversedMessage: function () {
+                    // `this` points to the vm instance
+                    return this.message.split('').reverse().join('')
+                },
+                addA() {
+                    console.log("addA() run");
+                    return this.number + this.a
+                },
+                addB() {
+                    console.log("addB() run");
+                    return this.number + this.b
+                }
+            },
+            computed: {
+                reversedMessage2: function () {
+                    // `this` points to the vm instance
+                    return this.message.split('').reverse().join('')
+                },
+                addA2() {
+                    console.log("addA2 run");
+                    return this.number + this.a
+                },
+                addB2() {
+                    console.log("addB2 run");
+                    return this.number + this.b
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
