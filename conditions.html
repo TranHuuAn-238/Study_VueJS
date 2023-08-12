@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditions</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+    <style>
+        .tabs {
+            margin: 0;
+            padding: 0;
+        }
+        .tabs li {
+            cursor: pointer;
+            display: inline-block;
+            padding: 10px 15px;
+            border: 1px solid #000;
+        }
+        .login, .register {
+            padding: 15px;
+            border: 2px solid blue;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- su dung bieu thuc dieu kien v-if de render ra cac phan tu HTML theo 1 dieu kien nhat dinh -->
+    <div id="app">
+        <ul class="tabs">
+            <li @click="changeTabs('login')">Login</li>
+            <li @click="changeTabs('register')">Register</li>
+        </ul>
+
+        <!-- ben trong v-if la bieu thuc JS -->
+        <!-- v-if khac v-show o cho: v-if se remove toan bo cau truc DOM cua case v-if ko vao; v-show thi toan bo phan tu HTML deu ton tai trong cau truc DOM, voi nhung case ko vao thi Vue tam an di voi css display: none -->
+        <!-- <div class="login" v-if="tabSelected === 'login'"> -->
+        <div class="login" v-show="tabSelected === 'login'">
+            <h2>Form login</h2>
+            <form action="">
+                <input type="text" placeholder="Input Username">
+                <input type="password" placeholder="Input Password">
+            </form>
+        </div>
+
+        <!-- <div class="register" v-else> -->
+        <!-- <div class="register" v-else-if="tabSelected === 'register'"> -->
+        <div class="register" v-show="tabSelected === 'register'">
+            <h2>Form register</h2>
+            <form action="">
+                <input type="text" placeholder="Input Username">
+                <input type="password" placeholder="Input Password">
+                <input type="password" placeholder="Confirm Password">
+            </form>
+        </div>
+    </div>
+    <!-- key: trong cac the input trong Vue de thong bao cho Vue biet cac phan tu input la hoan toan khac nhau => ko dc su dung lai gia tri da nhap truoc do, vd: -->
+    <!-- <input placeholder="Enter your username" key="username-input">
+    <input placeholder="Enter your email address" key="email-input"> -->
+   
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                tabSelected: 'login'
+            },
+            methods: {
+                changeTabs(tab) {
+                    this.tabSelected = tab;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

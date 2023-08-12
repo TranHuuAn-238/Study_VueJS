@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loops - list rendering</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+
+    <style>
+        .list-blog {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .list-blog .blog {
+            width: 21%;
+            margin: 2%;
+            border: 1px solid #000;
+        }
+        .blog .title {
+            font-weight: 700;
+            font-size: 18px;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <!-- sd de render 1 array/object ra html -->
+    <div id="app">
+        <!-- luu y: neu v-for va v-if tren cung 1 dong thi v-for co do uu tien cao hon v-if -->
+        <!-- => for (...) { if(...) {} } -->
+        <!-- Vue ko khuyen khich lam nhu nay => nen tao computed de xu ly logic truoc va render du lieu -->
+        <!-- <div class="user" v-for="user in arrUSer" v-if="user.isActive">{{ user.email }}</div> -->
+        <div class="user" v-for="user in userActive">{{ user.email }}</div>
+
+        <ul>
+            <li v-for="(value, key) in scores">{{ key }}: {{ value }}</li>
+        </ul>
+
+        <div class="list-blog">
+            <!-- <div v-for="(blog, index) in listBlogs" class="blog"></div> -->
+            <!-- thuoc tinh :key cho Vue co the dinh danh tung phan tu, la duy nhat cho moi phan tu, do minh tu dinh nghia va sau nay co the su dung de sap xep cac phan tu, loc phan tu,... -->
+            <div v-for="(blog, index) in listBlogs" class="blog" :key="index">
+                <div class="title">{{ index }}. {{ blog.title }}</div>
+                <div class="description">{{ index }}. {{ blog.body }}</div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                arrUSer: [
+                    { email: "abc@gmail.com", isActive: true },
+                    { email: "abcd@gmail.com", isActive: false },
+                    { email: "abce@gmail.com", isActive: true },
+                    { email: "abcr@gmail.com", isActive: false },
+                    { email: "abct@gmail.com", isActive: false },
+                ],
+
+                scores: {
+                    math: 10,
+                    english: 9.5,
+                    physics: 7
+                },
+                listBlogs: [
+                    {
+                        "userId": 1,
+                        "id": 1,
+                        "title": "combo yaxua",
+                        "body": "eq fl r ignore ctrl 7"
+                    },
+                    {
+                        "userId": 2,
+                        "id": 2,
+                        "title": "combo yii",
+                        "body": "r q e aaaaaaaaa"
+                    }
+                ]
+            },
+            computed: {
+                userActive() {
+                    // ham filter cua JS la ham cua array dung de loc ra cac phan tu cua array theo 1 dieu kien nao do(dieu kien tra ve true thi lay phan tu do)
+                    // o day dieu kien loc la u.isActive === true
+                    return this.arrUSer.filter(function(u) {
+                        // u la tung phan tu cua arrUSer
+                        return u.isActive;
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
