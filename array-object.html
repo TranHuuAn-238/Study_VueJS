@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luu y ve array va object</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+</head>
+<body>
+    
+    <!-- ban chat cua array la 1 object -->
+    <!-- neu su dung cach viet JS thong thuong de ap dung cho arr/object trong Vue thi khi data da duoc thay doi thanh cong thi he thong phan ung cua Vue van KHONG hoat dong => ko render duoc data da thay doi ra View -->
+    <!-- => sd array/object change detection: la nhung ham Vue cung cap san de thao tac, thay doi data la arr/object trong Vue va he thong phan ung van hoat dong dc -->
+    <div id="app">
+        <ul>
+            <li v-for="(score, key) in objScore">{{ key }}: {{ score }}</li>
+        </ul>
+        <ul>
+            <li v-for="val in arrNumber">{{ val }}</li>
+        </ul>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                objScore: {
+                    math: 8.5
+                },
+                arrNumber: [1,2,3,4,5]
+            }
+        })
+    </script>
+</body>
+</html>

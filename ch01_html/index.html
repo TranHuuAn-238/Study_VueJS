@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ReactJs</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+
+</head>
+
+<body cz-shortcut-listen="true">
+  <header>
+    <h1>Header</h1>
+  </header>
+  <div class="container">
+    <div class="list-blog">
+      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Modi sunt eveniet maxime magni in, nostrum
+        facilis, temporibus, quam facere sint est blanditiis harum dicta. Tempore suscipit ut hic. Deleniti,
+        qui.</p>
+    </div>
+    <div id="app2">
+      <div class="cart">Giỏ hàng ({{ cartNumber }})</div>
+      <div class="product">
+        <div class="product-image">
+          <div class="image"><img :src="getProduct.image" alt=""></div>
+        </div>
+        <div class="product-content">
+          <h3 class="title"><a
+              v-bind:href="url"
+              target="_blank">{{ title }}</a></h3>
+          <p class="brand">Thương hiệu: No brand</p>
+          <p class="quantity" v-if="getProduct.quantity > 0">Còn lại: {{ getProduct.quantity }} Sản phẩm</p>
+          <p class="quantity" v-else>HET HANG</p>
+          <!---->
+          <div class="wrapper-price">
+            <div class="final-price">{{ formatFinalPrice }}</div>
+            <div class="origin-price">{{ formatOriginalPrice }}</div>
+            <div class="sale-price">-{{ sale * 100 }}%</div>
+          </div>
+          <div class="wrapper-color">
+            <div class="text">Màu sắc</div>
+            <div class="list-color">
+              <p class="color-text">{{ getProduct.textColor }}</p>
+              <ul>
+                <li v-for="(item, index) in listProductDetail" :class="classActive(index)"
+                :key="index"
+                @click="handleClickColor($event, index)"><img :src="item.image" :alt="item.textColor"></li>
+                <!-- <li class=""><img src="./images/blue.jpg" alt="Màu Xanh"></li>
+                <li class="active"><img src="./images/black.jpg" alt="Màu Đen"></li> -->
+              </ul>
+            </div>
+          </div> <button class="add-to-cart" @click="handleAddToCart">Add to cart</button>
+        </div>
+      </div>
+      <div class="description">
+        <ul class="extra-info">
+          <li v-for="item in listDesc">{{ item }}</li>
+        </ul>
+
+        <!-- v-html: dung de render data la dang html, neu su dung {{ ... }} thi no chi hieu day la mot doan text -->
+        <div v-html="description">
+
+
+          <!-- <p>Mô tả: Áo thun cổ tròn thể thao Hiye chuyên được may từ chất liệu nilon thoáng mát và thoát mồ hôi tốt, kết
+            hợp thêm sợi thun tạo độ co giãn giúp người tiêu dùng thoải mái khi mặc</p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <h1>Footer</h1>
+  </footer>
+
+  <script src="../main.js"></script>
+
+</body>
+
+</html>
