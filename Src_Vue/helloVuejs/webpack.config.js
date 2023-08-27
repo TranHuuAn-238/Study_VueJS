@@ -39,7 +39,7 @@ module.exports = {
         options: {
           // name: '[name].[ext]?[hash]'
           name: function(file) {
-            return '/assets/[name].[ext]?[hash]'
+            return 'assets/[name].[ext]?[hash]'
           }
         }
       }
