@@ -36,7 +36,7 @@
  *  footer (title)
  * 
  *  => props: nhung data truyen tu comp cha sang comp con
- *  -> syntax goi ra sd giong nhu DOM attributes -> co v-bind;
+ *  -> syntax goi ra sd giong nhu DOM attributes -> co v-bind; tru truong hop ko truyen bien vao prop ma tryen string binh thuong thi ko can v-bind
  *  ben comp con se khai bao cac props do de lay data tu comp cha
  */
 
@@ -97,6 +97,43 @@ export default {
         // console.log(num);
       }
     }
+  },
+  // life cycle
+  beforeCreate() {
+    // truoc khi he thong phan ung dc tao
+    console.log('beforeCreate', this.title, document.querySelector('.container')); // undefined
+  },
+  // hay dung created() va mounted()
+  created() {
+    // sau khi he thong phan ung da dc tao xong -> luc nay co the truy xuat du lieu
+    // ham nay thuong sd de Call API, AJAX de lay data tu server ve
+    console.log('created', this.title, document.querySelector('.container'));
+  },
+  beforeMount() {
+    // dang bien dich template ra cau truc DOM, luc nay van chua truy cap dc DOM (van dang null)
+    console.log('beforeMount', this.title, document.querySelector('.container'));
+  },
+  mounted() {
+    // bien dich xong, toan bo cau truc DOM da dc hien thi ra HTML -> luc nay co the truy cap DOM
+    // neu muon sd JQuery, JS thuan hay cac thu vien JS lien quan tac dong den DOM -> chi truy xuat DOM dc trong mounted(), tai day moi bat dau sd dc jQuery
+    console.log('mounted', this.title, document.querySelector('.container').classList);
+  },
+  beforeUpdate() {
+    // dc chay khi co su thay doi ve data
+    console.log('beforeUpdate', this.title); // this.title: data mới
+  },
+  updated() {
+    console.log('updated', this.title);  // this.title: data mới
+  },
+
+  // it khi dung
+  beforeDestroy() {
+    // chay khi doi tuong Vue bi huy
+    console.log('beforeDestroy');
+  },
+  destroyed() {
+    // sd de destroy cac thu vien cua ben thu 3
+    console.log('destroyed');
   }
 }
 </script>
