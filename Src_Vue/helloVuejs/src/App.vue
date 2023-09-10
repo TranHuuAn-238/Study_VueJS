@@ -36,7 +36,7 @@
  *  footer (title)
  * 
  *  => props: nhung data truyen tu comp cha sang comp con
- *  -> syntax goi ra sd giong nhu DOM attributes -> co v-bind; tru truong hop ko truyen bien vao prop ma tryen string binh thuong thi ko can v-bind
+ *  -> syntax goi ra sd giong nhu DOM attributes -> co v-bind; tru truong hop ko truyen bien vao prop ma truyen string binh thuong thi ko can v-bind
  *  ben comp con se khai bao cac props do de lay data tu comp cha
  */
 
