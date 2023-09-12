@@ -3,13 +3,19 @@
         <div class="wrapper clearfix">
             <players 
                 :activePlayer="activePlayer"
-                :scorePlayer="scorePlayer"
+                :scoresPlayer="scoresPlayer"
                 :currentScore="currentScore"
             />
             
-            <controls />
+            <controls 
+                @handleNewGame="handleNewGame"
+            />
             
-            <dices />
+            <dices :dices="dices" />
+
+            <popup-rule 
+                @handleConfirm="handleConfirm"
+                :isOpenPopup="isOpenPopup" />
         </div>
 
 	</div>
@@ -19,21 +25,41 @@
 import Players from "./components/Players"; // ko can khai bao duoi .vue cung dc
 import Controls from "./components/Controls";
 import Dices from './components/Dices.vue';
+import PopupRule from './components/PopupRule.vue';
 
 export default {
 	name: 'app',
 	data () {
 		return {
             isPlaying: false,
+            isOpenPopup: false,
             activePlayer: 1, // nguoi choi hien tai
-            scorePlayer: [20, 40],
+            scoresPlayer: [20, 40],
+            dices: [2, 5],
             currentScore: 1
 		}
 	},
 	components: {
         Players,
         Controls,
-        Dices
+        Dices,
+        PopupRule
+    },
+    methods: {
+        handleConfirm() {
+            console.log('handleConfirm from App.vue');
+            this.isPlaying = true;
+            this.isOpenPopup = false;
+            this.activePlayer = 0;
+            this.dices = [1, 1];
+            this.scoresPlayer = [0, 0];
+            this.currentScore = 0;
+        },
+        handleNewGame() {
+            console.log('from App.vue');
+            // hien thi popup -> show luat choi
+            this.isOpenPopup = true;
+        }
     }
    
 }

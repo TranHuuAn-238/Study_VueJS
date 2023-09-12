@@ -3,7 +3,7 @@
         <!-- neu nhieu item hon nua thi co the tach them component nua o day -->
         <div class="player-panel winner" :class="{ active: activePlayer == 0 }">
             <div class="player-name">Player 1</div>
-            <div class="player-score">{{ scorePlayer[0] }}</div>
+            <div class="player-score">{{ scoresPlayer[0] }}</div>
             <div class="player-current-box">
                 <div class="player-current-label">Current</div>
                 <div class="player-current-score">{{ activePlayer == 0 ? currentScore : 0 }}</div>
@@ -12,7 +12,7 @@
         
         <div class="player-panel" :class="{ active: activePlayer == 1 }">
             <div class="player-name">Player 2</div>
-            <div class="player-score">{{ scorePlayer[1] }}</div>
+            <div class="player-score">{{ scoresPlayer[1] }}</div>
             <div class="player-current-box">
                 <div class="player-current-label">Current</div>
                 <div class="player-current-score">{{ activePlayer == 1 ? currentScore : 0 }}</div>
@@ -26,7 +26,7 @@
 export default {
   name: "players",
   props: {
-    scorePlayer: {
+    scoresPlayer: {
         type: Array,
         default: [0, 0]
     },
