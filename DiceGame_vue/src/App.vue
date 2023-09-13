@@ -9,6 +9,7 @@
             
             <controls 
                 @handleNewGame="handleNewGame"
+                @handleRollDice="handleRollDice"
             />
             
             <dices :dices="dices" />
@@ -46,6 +47,45 @@ export default {
         PopupRule
     },
     methods: {
+        nextPlayer() {
+            // activePlayer = 0 => 1; 1 => 0
+            this.activePlayer = this.activePlayer === 0 ? 1 : 0;
+            this.currentScore = 0;
+        },
+        handleRollDice() {
+            console.log('handleRollDice from App.vue');
+            if(this.isPlaying) {
+                // xoay xuc xac
+                // Math.random(): mac dinh random tu 0 -> 1
+                /**
+                 * 0 <= X <= 6
+                 * 0 * 6 <= Y=X*6 <= 1*6
+                 */
+                // lam tron xuong va +1
+                var dice1 = Math.floor(Math.random() * 6) + 1;
+                var dice2 = Math.floor(Math.random() * 6) + 1;
+
+                this.dices = [dice1, dice2];
+                console.log(dice1, dice2);
+
+                if (dice1 === 1 || dice2 === 1) {
+                    // doi luot choi
+                    let activePlayerr = this.activePlayer;
+                    setTimeout(function() {
+                        // console.log(this);
+                        // neu su dung arrow function thi co the truy xuat bien this cua Vue nhu thuong: ${this.activePlayer + 1}
+                        alert(`Player ${activePlayerr + 1} so very đen`);
+                    }, 10);
+                    // reset diem tam thoi currentScore ve 0
+                    this.nextPlayer();
+                } else {
+                    // cong don diem tam thoi currentScore cho nguoi dang choi
+                    this.currentScore = this.currentScore + dice1 + dice2;
+                }
+            } else {
+                alert('Please click on New Game button to start the Game');
+            }
+        },
         handleConfirm() {
             console.log('handleConfirm from App.vue');
             this.isPlaying = true;
