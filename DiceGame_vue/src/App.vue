@@ -8,6 +8,7 @@
             />
             
             <controls 
+                @handleHoldScore="handleHoldScore"
                 @handleNewGame="handleNewGame"
                 @handleRollDice="handleRollDice"
             />
@@ -47,6 +48,34 @@ export default {
         PopupRule
     },
     methods: {
+        handleHoldScore() {
+            if (this.isPlaying) {
+                console.log('handleHoldScore from App.vue');
+                // activePlayer = 0 => Nguoi choi 1
+                // activePlayer = 1 => Nguoi choi 2
+                // scoresPlayer array
+                // scoresPlayer[0] = scoresPlayer[activePlayer]
+                // scoresPlayer[1] = scoresPlayer[activePlayer]
+
+                // destructuring JS - ES6
+                let { scoresPlayer, activePlayer, currentScore } = this;
+                let scoreOld = scoresPlayer[activePlayer];
+
+                // luu y dang lam viec vs array/object
+                // clone data: tao 1 array moi sau do copy lai du lieu vao array cu
+                // let cloneScorePlayer = [...scoresPlayer]; // spread operator
+                // cloneScorePlayer[activePlayer] = scoreOld + currentScore;            
+                // this.scoresPlayer = cloneScorePlayer; // tai day clone data vao mang goc de thay doi dc dia chi o nho cua mang goc ban dau
+                // hoac sd set cua Vue
+                this.$set(this.scoresPlayer, activePlayer, scoreOld + currentScore); // params: mang goc muon thay doi, key/index cua mang goc, gia tri moi
+
+                // this.scoresPlayer[this.activePlayer] = this.scoresPlayer[this.activePlayer] + this.currentScore;
+                // this.scoresPlayer[activePlayer] = scoreOld + currentScore;
+                this. nextPlayer(); // lay diem xog thi doi luot choi
+            } else {
+                alert('Please click on New Game button to start the Game');
+            }
+        },
         nextPlayer() {
             // activePlayer = 0 => 1; 1 => 0
             this.activePlayer = this.activePlayer === 0 ? 1 : 0;
