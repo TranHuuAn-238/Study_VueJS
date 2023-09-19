@@ -10,13 +10,24 @@
             @click="$emit('handleHoldScore')"
             class="control btn-hold"><i class="ion-ios-download-outline"></i>Hold</button>
         
-        <input type="number" placeholder="Final score" class="final-score">
+        <!-- luu y: v-model luon tra ve data dang string khi o input thay doi(du data ban dau la int) => nho ep kieu ve int -->
+        <!-- luu y 2: vi data finalScore luc nay dang la props nen ko the sd v-model="finalScore" -->
+        <!-- => luc nay giai phap tuong duong v-model la phai v-bind data va viet 1 event xu ly viec input thay doi -->
+        <input 
+            :disabled="isPlaying"
+            :value="finalScore"
+            @input="$emit('handleChangeFinalScore', $event)"
+            type="number" placeholder="Final score" class="final-score">
     </div>    
 </template>
 
 <script>
 export default {
     name: 'controls',
+    props: {
+        finalScore: { type: [Number, String], default: 100 },
+        isPlaying: { type: Boolean, default: false }
+    },
     data() {
         return {
 

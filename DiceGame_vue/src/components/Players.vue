@@ -1,8 +1,12 @@
 <template>
     <div class="wrapper-player">
         <!-- neu nhieu item hon nua thi co the tach them component nua o day -->
-        <div class="player-panel winner" :class="{ active: activePlayer == 0 }">
-            <div class="player-name">Player 1</div>
+        <!-- chi co 1 class active hoac 1 class winner -->
+        <div class="player-panel winner" :class="{ 
+                                                active: activePlayer == 0 && !this.isWinner,
+                                                winner: activePlayer == 0 && this.isWinner
+                                            }">
+            <div class="player-name">{{ getNamePlayer(0) }}</div>
             <div class="player-score">{{ scoresPlayer[0] }}</div>
             <div class="player-current-box">
                 <div class="player-current-label">Current</div>
@@ -10,8 +14,11 @@
             </div>
         </div>
         
-        <div class="player-panel" :class="{ active: activePlayer == 1 }">
-            <div class="player-name">Player 2</div>
+        <div class="player-panel" :class="{ 
+                                                active: activePlayer == 1 && !this.isWinner,
+                                                winner: activePlayer == 1 && this.isWinner
+                                            }">
+            <div class="player-name">{{ getNamePlayer(1) }}</div>
             <div class="player-score">{{ scoresPlayer[1] }}</div>
             <div class="player-current-box">
                 <div class="player-current-label">Current</div>
@@ -31,10 +38,25 @@ export default {
         default: [0, 0]
     },
     currentScore: { type: Number, default: 0 },
-    activePlayer: { type: Number, default: 0 }
+    activePlayer: { type: Number, default: 0 },
+    isWinner: { type: Boolean, default: false }
   },
   data() {
-    return {};
+    return {
+
+    };
+  },
+  methods: {
+    getNamePlayer(index) {
+        var defaultName = 'Player ' + (index + 1);
+
+        console.log(index, defaultName, this.isWinner, this.activePlayer);
+        // co nguoi choi hien tai va la nguoi thang cuoc
+        if (this.activePlayer == index && this.isWinner) {
+            defaultName = 'Winner!'
+        }
+        return defaultName;
+    }
   }
 };
 </script>

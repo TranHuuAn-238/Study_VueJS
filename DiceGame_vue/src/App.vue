@@ -2,12 +2,16 @@
 	<div id="app">
         <div class="wrapper clearfix">
             <players 
+                :isWinner="isWinner"
                 :activePlayer="activePlayer"
                 :scoresPlayer="scoresPlayer"
                 :currentScore="currentScore"
             />
             
             <controls 
+                :isPlaying="isPlaying"
+                :finalScore="finalScore"
+                @handleChangeFinalScore="handleChangeFinalScore"
                 @handleHoldScore="handleHoldScore"
                 @handleNewGame="handleNewGame"
                 @handleRollDice="handleRollDice"
@@ -35,10 +39,11 @@ export default {
 		return {
             isPlaying: false,
             isOpenPopup: false,
-            activePlayer: 1, // nguoi choi hien tai
-            scoresPlayer: [20, 40],
+            activePlayer: 0, // nguoi choi hien tai
+            scoresPlayer: [0, 0],
             dices: [2, 5],
-            currentScore: 1
+            currentScore: 0,
+            finalScore: 15
 		}
 	},
 	components: {
@@ -47,7 +52,30 @@ export default {
         Dices,
         PopupRule
     },
+    computed: {
+        // computed dc chay bat cu khi nao data co su thay doi
+        // computed du viet la func thi cug dc truyen props xuong cho comp con nhu truyen data thong thuong(v-bind) => ko co () nhu methods
+        isWinner() {
+            let { scoresPlayer, finalScore } = this;
+
+            if(scoresPlayer[0] >= finalScore || scoresPlayer[1] >= finalScore) {
+                // dung cuoc choi
+                this.isPlaying = false;
+                return true;
+            }
+            return false;
+        }
+    },
     methods: {
+        handleChangeFinalScore(e) {
+            var number = parseInt(e.target.value);
+            if (isNaN(number)) {
+                this.finalScore = '';
+            } else {
+                this.finalScore = number;
+            }
+            // console.log(e.target.value);
+        },
         handleHoldScore() {
             if (this.isPlaying) {
                 console.log('handleHoldScore from App.vue');
@@ -62,16 +90,18 @@ export default {
                 let scoreOld = scoresPlayer[activePlayer];
 
                 // luu y dang lam viec vs array/object
-                // clone data: tao 1 array moi sau do copy lai du lieu vao array cu
+                // clone data: tao 1 array moi de xu ly sau do copy lai du lieu vao array cu
                 // let cloneScorePlayer = [...scoresPlayer]; // spread operator
                 // cloneScorePlayer[activePlayer] = scoreOld + currentScore;            
                 // this.scoresPlayer = cloneScorePlayer; // tai day clone data vao mang goc de thay doi dc dia chi o nho cua mang goc ban dau
                 // hoac sd set cua Vue
-                this.$set(this.scoresPlayer, activePlayer, scoreOld + currentScore); // params: mang goc muon thay doi, key/index cua mang goc, gia tri moi
+                this.$set(this.scoresPlayer, activePlayer, scoreOld + currentScore); // params: mang goc muon thay doi, key/index cua phan tu trong mang goc muon doi value, gia tri moi
 
                 // this.scoresPlayer[this.activePlayer] = this.scoresPlayer[this.activePlayer] + this.currentScore;
                 // this.scoresPlayer[activePlayer] = scoreOld + currentScore;
-                this. nextPlayer(); // lay diem xog thi doi luot choi
+                if (!this.isWinner) {
+                    this.nextPlayer(); // lay diem xog thi doi luot choi
+                }
             } else {
                 alert('Please click on New Game button to start the Game');
             }
