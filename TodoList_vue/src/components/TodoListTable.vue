@@ -12,9 +12,11 @@
             </thead>
 
             <tbody>
-                <todo-list-item />
-                <todo-list-item />                
-                <todo-list-item />
+                <todo-list-item 
+                    v-for="(task, index) in listTask" :key="task.id" 
+                    :task="task"
+                    :index="index + 1"
+                />
             </tbody>
 
         </table>
@@ -28,6 +30,9 @@ export default {
     name: 'todo-list-table',
     components: {
         TodoListItem
+    },
+    props: {
+        listTask: { type: Array, default: [] }
     },
     data() {
         return {

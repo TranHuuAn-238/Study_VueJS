@@ -1,14 +1,6 @@
 <template>
 	<div id="app">
 		<b-container>
-			<b-row noGutters>
-				<b-col cols="12" lg="2">1 of 3</b-col>
-				<b-col>2 of 3</b-col>
-				<b-col>3 of 3</b-col>
-			</b-row>
-		</b-container>
-		<b-container>
-
 			<!-- TITLE : START -->
 			<comp-title />
 			<!-- TITLE : END -->
@@ -25,17 +17,22 @@
 			</b-row>
 
 			<!-- LIST : START -->
-			<todo-list-table />			
+			<todo-list-table 
+				:listTask="listTask"
+			/>			
 		</b-container>
 
 	</div>
 </template>
 
 <script>
+// chua can luu du lieu => tao Mock data, Fake data de test, nen luu data nay o 1 file rieng roi export ra va import vao de su dung
 import TodoListTable from "./components/TodoListTable.vue";
 import CompTitle from "./components/CompTitle.vue";
 import CompControl from "./components/CompControl.vue";
 import CompForm from "./components/CompForm.vue";
+
+import listTask from "./mocks/tasks";
 
 export default {
 	name: 'app',
@@ -47,8 +44,13 @@ export default {
 	},
 	data () {
 		return {
+			listTask: listTask
 		}
 	},
+	// sd lifecycle de test xem nhan dc data chua
+	created() {
+		console.log('created task = ', listTask);
+	}
 
 }
 </script>
