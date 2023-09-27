@@ -12,7 +12,10 @@
 				<!-- CONTROL (SEARCH + SORT + ADD) : END -->
 
 				<!-- FORM : START -->
-				<comp-form />
+				<comp-form 
+					:isShowForm="isShowForm"
+					@toggleForm="toggleForm"
+				/>
 				<!-- FORM : END -->
 			</b-row>
 
@@ -44,12 +47,19 @@ export default {
 	},
 	data () {
 		return {
-			listTask: listTask
+			listTask: listTask,
+			isShowForm: false
 		}
 	},
 	// sd lifecycle de test xem nhan dc data chua
 	created() {
 		console.log('created task = ', listTask);
+	},
+	methods: {
+		toggleForm() {
+			console.log('toggleForm App.vue');
+			this.isShowForm = !this.isShowForm;
+		}
 	}
 
 }
