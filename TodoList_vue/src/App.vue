@@ -8,7 +8,10 @@
 
 			<b-row>
 				<!-- CONTROL (SEARCH + SORT + ADD) : START -->
-				<comp-control />
+				<comp-control 
+					:strSearch="strSearch"
+					@handleSearch="handleSearch"
+				/>
 				<!-- CONTROL (SEARCH + SORT + ADD) : END -->
 
 				<!-- FORM : START -->
@@ -21,7 +24,7 @@
 
 			<!-- LIST : START -->
 			<todo-list-table 
-				:listTask="listTask"
+				:listTask="listTaskSearch"
 			/>			
 		</b-container>
 
@@ -48,7 +51,28 @@ export default {
 	data () {
 		return {
 			listTask: listTask,
-			isShowForm: false
+			isShowForm: false,
+			strSearch: ''
+		}
+	},
+	computed: {
+		listTaskSearch() {
+			// tim kiem - logic search
+			const { strSearch } = this;
+
+			var newItems = this.listTask.filter(item => {
+				return item.name.toLowerCase().includes(strSearch.toLowerCase());
+			}); // item => item.name.toLowerCase().includes(strSearch.toLowerCase());  // short syntax khi chi co 1 return
+
+			// var newItems = [];
+			// this.listTask.forEach(function(item, index) {
+			// 	let lowerName = item.name.toLowerCase();
+			// 	let lowerSubString = strSearch.toLowerCase();
+			// 	if (lowerName.includes(lowerSubString)) {
+			// 		newItems.push(item);					
+			// 	}
+			// });
+			return newItems;
 		}
 	},
 	// sd lifecycle de test xem nhan dc data chua
@@ -56,6 +80,10 @@ export default {
 		console.log('created task = ', listTask);
 	},
 	methods: {
+		handleSearch(data) {
+			this.strSearch = data;
+			console.log('handleSearch App.vue: ', data);
+		},
 		toggleForm() {
 			console.log('toggleForm App.vue');
 			this.isShowForm = !this.isShowForm;

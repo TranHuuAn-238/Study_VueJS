@@ -6,7 +6,10 @@
             <!-- SORT : END -->
 
             <!-- SEARCH : START -->
-            <control-search />
+            <control-search 
+                @handleSearch="handleSearch"
+                :strSearch="strSearch"
+            />
             <!-- SEARCH : END -->
         </div>
     </div>
@@ -22,11 +25,21 @@ export default {
         ControlSort,
         ControlSearch
     },
+    props: {
+        strSearch: { type: String, default: '' }
+    },
     data() {
         return {
             
         }
-    }    
+    },
+    methods: {
+        handleSearch(data) {
+            console.log('handleSearch CompControl.vue: ', data);
+            this.$emit('handleSearch', data);
+
+        }
+    }
 }
 </script>
 

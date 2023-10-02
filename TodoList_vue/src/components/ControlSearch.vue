@@ -1,22 +1,42 @@
 <template>
      <div class="col-12">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for..." />
+            <input 
+                :value="strSearch"
+                @input="handleSearch"
+                type="text" class="form-control" placeholder="Search for..." />
             <span class="input-group-append">
-                <button class="btn btn-info" type="button">Clear!</button>
+                <button
+                    @click="handleClear" 
+                    class="btn btn-info" type="button">Clear!</button>
             </span>
         </div>
     </div>
 </template>
 
 <script>
+// v-model => v-bind + v-on:input
 export default {
     name: 'control-search',
+    props: {
+        strSearch: { type: String, default: '' }
+    },
     data() {
         return {
 
         }
-    }    
+    },
+    methods: {
+        handleClear() {
+            // thay doi gia tri strSearch ve ''
+            this.$emit('handleSearch', '');
+        },
+        handleSearch(e) {
+            // console.log(e.target);
+            console.log('handleSearch ControlSearch.vue');
+            this.$emit('handleSearch', e.target.value);
+        }
+    }
 }
 </script>
 
