@@ -9,7 +9,10 @@
 			<b-row>
 				<!-- CONTROL (SEARCH + SORT + ADD) : START -->
 				<comp-control 
+					:orderBy="orderBy"
+					:orderDir="orderDir"
 					:strSearch="strSearch"
+					@handleSort="handleSort"
 					@handleSearch="handleSearch"
 				/>
 				<!-- CONTROL (SEARCH + SORT + ADD) : END -->
@@ -24,7 +27,7 @@
 
 			<!-- LIST : START -->
 			<todo-list-table 
-				:listTask="listTaskSearch"
+				:listTask="listTaskSort"
 			/>			
 		</b-container>
 
@@ -52,7 +55,9 @@ export default {
 		return {
 			listTask: listTask,
 			isShowForm: false,
-			strSearch: ''
+			strSearch: '',
+			orderBy: 'name',
+			orderDir: 'asc'
 		}
 	},
 	computed: {
@@ -73,6 +78,20 @@ export default {
 			// 	}
 			// });
 			return newItems;
+		},
+		listTaskSort() {
+			// var listTask = this.listTask;
+			// listTask -> search -> sort tren ket qua search
+			var listTask = [...this.listTaskSearch]; // clone data, de dam bao bien listTask ban dau goc ko thay doi => nen su dung
+
+			listTask.sort(this.compareSort);
+			// if(this.orderBy === 'name') {
+			// 	listTask.sort(this.compareName);
+			// } else if(this.orderBy === 'level') {
+			// 	listTask.sort(this.compareLevel);
+			// }
+
+			return listTask;
 		}
 	},
 	// sd lifecycle de test xem nhan dc data chua
@@ -80,6 +99,33 @@ export default {
 		console.log('created task = ', listTask);
 	},
 	methods: {
+		compareSort(a, b) {
+			var numberSort = this.orderDir === 'asc' ? -1 : 1;
+
+			// co the truy xuat vao thuoc tinh object bang 2 cach: su dung a.attr nhu binh thuong hoac syntax giong mang a['attr']
+			if(a[this.orderBy] < b[this.orderBy]) return numberSort;
+			else if(a[this.orderBy] > b[this.orderBy]) return numberSort * (-1);
+			return 0;
+		},
+		// compareName(a, b) {
+		// 	var numberSort = this.orderDir === 'asc' ? -1 : 1;
+
+		// 	if(a.name < b.name) return numberSort;
+		// 	else if(a.name > b.name) return numberSort * (-1);
+		// 	return 0;
+		// },
+		// compareLevel(a, b) {
+		// 	var numberSort = this.orderDir === 'asc' ? -1 : 1;
+
+		// 	if(a.level < b.level) return numberSort;
+		// 	else if(a.level > b.level) return numberSort * (-1);
+		// 	return 0;
+		// },
+		handleSort(data) {
+			this.orderBy = data.orderBy;
+			this.orderDir = data.orderDir;
+			console.log("handleSort App.vue", data);
+		},
 		handleSearch(data) {
 			this.strSearch = data;
 			console.log('handleSearch App.vue: ', data);

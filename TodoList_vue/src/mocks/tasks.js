@@ -4,12 +4,12 @@ import { v4 as uuidv4 } from "uuid";
 export default [
     {
         id: uuidv4(),
-        name: 'lorem A',
+        name: 'aorem A',
         level: 0	// small
     },
     {
         id: uuidv4(),
-        name: 'lorem B',
+        name: 'aorem B',
         level: 1	// medium
     },
     {
