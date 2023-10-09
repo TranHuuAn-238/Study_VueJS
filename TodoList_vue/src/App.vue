@@ -28,6 +28,7 @@
 			<!-- LIST : START -->
 			<todo-list-table 
 				:listTask="listTaskSort"
+				@handleDelete="handleDelete"
 			/>			
 		</b-container>
 
@@ -95,10 +96,28 @@ export default {
 		}
 	},
 	// sd lifecycle de test xem nhan dc data chua
-	created() {
-		console.log('created task = ', listTask);
-	},
+	// created() {
+	// 	console.log('created task = ', listTask);
+	// },
 	methods: {
+		handleDelete(taskDelete) {
+			// C1:
+			this.listTask = this.listTask.filter(item => item.id !== taskDelete.id);
+
+			// C2
+			// var idxDelete = -1;
+			// for (var index = 0; index < this.listTask.length; index++) {
+			// 	if (this.listTask[index].id === taskDelete.id) {
+			// 		idxDelete = index;
+			// 		break;	
+			// 	}			
+			// }
+			// if (idxDelete !== -1) {
+			// 	this.listTask.splice(idxDelete, 1);
+			// }
+
+			console.log('handleDelete App.vue: ', taskDelete);
+		},
 		compareSort(a, b) {
 			var numberSort = this.orderDir === 'asc' ? -1 : 1;
 

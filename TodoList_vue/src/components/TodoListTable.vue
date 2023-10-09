@@ -16,6 +16,7 @@
                     v-for="(task, index) in listTask" :key="task.id" 
                     :task="task"
                     :index="index + 1"
+                    @handleDelete="handleDelete"
                 />
             </tbody>
 
@@ -46,6 +47,12 @@ export default {
     data() {
         return {
             
+        }
+    },
+    methods: {
+        handleDelete(taskDelete) {
+            console.log('handleDelete ListTable.vue', taskDelete);
+            this.$emit('handleDelete', taskDelete);
         }
     }
 }

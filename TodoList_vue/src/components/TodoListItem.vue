@@ -7,7 +7,9 @@
         </td>
         <td>
             <button type="button" class="btn btn-warning">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
+            <button 
+                @click="handleDelete"
+                type="button" class="btn btn-danger">Delete</button>
         </td>
     </tr>
 </template>
@@ -61,6 +63,13 @@ export default {
             mapLevel: mapLevel
         }        
     },
+    methods: {
+        handleDelete() {
+            if (confirm('Do you want to delete this task: ' + this.task.name)) {
+                this.$emit('handleDelete', this.task);
+            }
+        }
+    }
 }
 </script>
 
