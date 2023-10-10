@@ -21,6 +21,7 @@
 				<comp-form 
 					:isShowForm="isShowForm"
 					@toggleForm="toggleForm"
+					@handleAddNewTask="handleAddNewTask"
 				/>
 				<!-- FORM : END -->
 			</b-row>
@@ -100,6 +101,10 @@ export default {
 	// 	console.log('created task = ', listTask);
 	// },
 	methods: {
+		handleAddNewTask(task) {
+			this.listTask.push(task);
+			console.log('handleAddNewTask App.vue', task);
+		},
 		handleDelete(taskDelete) {
 			// C1:
 			this.listTask = this.listTask.filter(item => item.id !== taskDelete.id);
