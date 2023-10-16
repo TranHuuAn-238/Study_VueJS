@@ -22,8 +22,14 @@
             </div>
 
             <button 
+                v-if="taskSelected === null"
                 @click="handleAddNew"
                 type="button" class="btn btn-primary">Submit</button>
+            <button 
+                v-else
+                @click="handleEditTask"
+                type="button" class="btn btn-primary">Update</button>
+
             <button 
                 @click="handleCancel"
                 type="button" class="btn btn-secondary">Cancel</button>
@@ -42,7 +48,8 @@ export default {
         FormAdd
     },
     props: {
-        isShowForm: { type: Boolean, default: false }
+        isShowForm: { type: Boolean, default: false },
+        taskSelected: { type: Object, default: null }
     },
     data() {
         return {
@@ -50,7 +57,36 @@ export default {
             level: 0
         }
     },
+    watch: {
+        taskSelected: function(newData, oldData) {
+            if(newData !== null) {
+                // nguoi dung da click vao button edit
+                this.taskName = newData.name;
+                this.level = newData.level;
+            }
+            // console.log('beforeUpdate: ', this.taskSelected);
+            console.log("watcher taskSelected ", newData, oldData);
+        }
+    },
+    beforeUpdate() {
+        // if(this.taskSelected !== null) {
+        //     // nguoi dung da click vao button edit
+        //     this.taskName = this.taskSelected.name;
+        //     this.level = this.taskSelected.level;
+        // }
+        // console.log('beforeUpdate: ', this.taskSelected);
+    },
     methods: {
+        handleEditTask() {
+            let objTaskEdit = {
+                id: this.taskSelected.id,
+                name: this.taskName,
+                level: parseInt(this.level)
+            }
+            this.$emit('handleEditTaskById', objTaskEdit);
+            this.handleResetData();
+            // console.log('handleEditTask CompForm.vue ', this.taskSelected);
+        },
         handleAddNew() {
             let objTask = {
                 id: uuidv4(),

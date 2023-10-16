@@ -20,8 +20,10 @@
 				<!-- FORM : START -->
 				<comp-form 
 					:isShowForm="isShowForm"
+					:taskSelected="taskSelected"
 					@toggleForm="toggleForm"
 					@handleAddNewTask="handleAddNewTask"
+					@handleEditTaskById="handleEditTaskById"
 				/>
 				<!-- FORM : END -->
 			</b-row>
@@ -29,6 +31,7 @@
 			<!-- LIST : START -->
 			<todo-list-table 
 				:listTask="listTaskSort"
+				@handleEdit="handleEdit"
 				@handleDelete="handleDelete"
 			/>			
 		</b-container>
@@ -59,7 +62,8 @@ export default {
 			isShowForm: false,
 			strSearch: '',
 			orderBy: 'name',
-			orderDir: 'asc'
+			orderDir: 'asc',
+			taskSelected: null
 		}
 	},
 	computed: {
@@ -101,9 +105,29 @@ export default {
 	// 	console.log('created task = ', listTask);
 	// },
 	methods: {
+		handleEditTaskById(taskEdit) {
+			// tim index tuong ung voi taskEdit.id nam trong this.taskList goc
+			let index = this.listTask.findIndex(item => item.id === taskEdit.id);
+			// let index = this.listTask.findIndex(function(item) {
+			// 	return item.id === taskEdit.id;
+			// });
+			console.log('index = ', index, taskEdit.id);
+			if (index !== -1) {
+				// neu tim thay index, ap dung splice de tien hanh xoa va them moi gia tri vao listTask
+				this.listTask.splice(index, 1, taskEdit);
+				this.toggleForm();
+			}
+
+		},
 		handleAddNewTask(task) {
 			this.listTask.push(task);
 			console.log('handleAddNewTask App.vue', task);
+		},
+		handleEdit(taskEdit) {
+			this.isShowForm = true;
+			this.taskSelected = taskEdit;
+			console.log('handleEdit App.vue', taskEdit);
+			// console.log(this);
 		},
 		handleDelete(taskDelete) {
 			// C1:
@@ -155,6 +179,10 @@ export default {
 			console.log('handleSearch App.vue: ', data);
 		},
 		toggleForm() {
+			if(this.isShowForm) {
+				this.taskSelected = null;
+			}
+
 			console.log('toggleForm App.vue');
 			this.isShowForm = !this.isShowForm;
 		}

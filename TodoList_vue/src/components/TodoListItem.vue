@@ -6,7 +6,9 @@
             <span class="badge" :class="classLevel">{{ getLevelName }}</span>
         </td>
         <td>
-            <button type="button" class="btn btn-warning">Edit</button>
+            <button 
+                @click="handleEdit"
+                type="button" class="btn btn-warning">Edit</button>
             <button 
                 @click="handleDelete"
                 type="button" class="btn btn-danger">Delete</button>
@@ -64,6 +66,9 @@ export default {
         }        
     },
     methods: {
+        handleEdit() {
+            this.$emit('handleEdit', this.task);
+        },
         handleDelete() {
             if (confirm('Do you want to delete this task: ' + this.task.name)) {
                 this.$emit('handleDelete', this.task);
