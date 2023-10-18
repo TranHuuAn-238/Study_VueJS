@@ -58,12 +58,18 @@ export default {
 	},
 	data () {
 		return {
-			listTask: listTask,
+			listTask: null,
 			isShowForm: false,
 			strSearch: '',
 			orderBy: 'name',
 			orderDir: 'asc',
 			taskSelected: null
+		}
+	},
+	watch: {
+		listTask: function(newTasks) {
+			var tasksString = JSON.stringify(newTasks);
+			localStorage.setItem('tasks', tasksString);
 		}
 	},
 	computed: {
@@ -101,9 +107,15 @@ export default {
 		}
 	},
 	// sd lifecycle de test xem nhan dc data chua
-	// created() {
-	// 	console.log('created task = ', listTask);
-	// },
+	created() {
+		// lay listTask tu trong localStorage
+		let tasks = localStorage.getItem('tasks');
+		if (tasks !== null) {
+			this.listTask = JSON.parse(tasks);
+		} else {
+			this.listTask = [];
+		}
+	},
 	methods: {
 		handleEditTaskById(taskEdit) {
 			// tim index tuong ung voi taskEdit.id nam trong this.taskList goc
