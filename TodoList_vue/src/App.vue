@@ -46,7 +46,7 @@ import CompTitle from "./components/CompTitle.vue";
 import CompControl from "./components/CompControl.vue";
 import CompForm from "./components/CompForm.vue";
 
-import listTask from "./mocks/tasks";
+// import listTask from "./mocks/tasks";
 
 export default {
 	name: 'app',
@@ -138,8 +138,6 @@ export default {
 		handleEdit(taskEdit) {
 			this.isShowForm = true;
 			this.taskSelected = taskEdit;
-			console.log('handleEdit App.vue', taskEdit);
-			// console.log(this);
 		},
 		handleDelete(taskDelete) {
 			// C1:
@@ -156,8 +154,6 @@ export default {
 			// if (idxDelete !== -1) {
 			// 	this.listTask.splice(idxDelete, 1);
 			// }
-
-			console.log('handleDelete App.vue: ', taskDelete);
 		},
 		compareSort(a, b) {
 			var numberSort = this.orderDir === 'asc' ? -1 : 1;
@@ -188,14 +184,12 @@ export default {
 		},
 		handleSearch(data) {
 			this.strSearch = data;
-			console.log('handleSearch App.vue: ', data);
 		},
 		toggleForm() {
 			if(this.isShowForm) {
 				this.taskSelected = null;
 			}
 
-			console.log('toggleForm App.vue');
 			this.isShowForm = !this.isShowForm;
 		}
 	}

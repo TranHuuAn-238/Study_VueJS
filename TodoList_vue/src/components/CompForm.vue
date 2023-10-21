@@ -39,7 +39,8 @@
 
 <script>
 import FormAdd from "./FormAdd";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
+import uuidv4 from 'uuid/v4';
 
 
 export default {
@@ -64,8 +65,6 @@ export default {
                 this.taskName = newData.name;
                 this.level = newData.level;
             }
-            // console.log('beforeUpdate: ', this.taskSelected);
-            console.log("watcher taskSelected ", newData, oldData);
         }
     },
     beforeUpdate() {
@@ -85,7 +84,6 @@ export default {
             }
             this.$emit('handleEditTaskById', objTaskEdit);
             this.handleResetData();
-            // console.log('handleEditTask CompForm.vue ', this.taskSelected);
         },
         handleAddNew() {
             let objTask = {
@@ -99,7 +97,6 @@ export default {
             this.handleCancel();
         },
         handleToggleForm() {
-            console.log('handleAddTask CompForm.vue');
             this.$emit('toggleForm');
         },
         handleCancel() {

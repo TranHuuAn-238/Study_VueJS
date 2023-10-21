@@ -1,5 +1,7 @@
 // const { v4: uuidv4 } = require('uuid'); // syntax ES5 la require, syntax ES6 la import
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
+// const uuidv4 = require('uuid/v4');
+import uuidv4 from 'uuid/v4';
 
 export default [
     {

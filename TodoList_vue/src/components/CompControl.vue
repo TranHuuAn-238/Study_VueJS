@@ -41,13 +41,11 @@ export default {
     },
     methods: {
         handleSearch(data) {
-            console.log('handleSearch CompControl.vue: ', data);
             this.$emit('handleSearch', data);
 
         },
         // handleSort(orderBy, orderDir) {
         handleSort(data) {
-            console.log('handleSort CompControl.vue: ', data);
             this.$emit("handleSort", data);
         }
     }

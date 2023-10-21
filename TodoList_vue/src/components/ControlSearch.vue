@@ -33,7 +33,6 @@ export default {
         },
         handleSearch(e) {
             // console.log(e.target);
-            console.log('handleSearch ControlSearch.vue');
             this.$emit('handleSearch', e.target.value);
         }
     }

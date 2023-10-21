@@ -24,7 +24,6 @@ export default {
     },
     methods: {
         onClickAddTask() {
-            console.log('onClickAddTask FormAdd.vue');
             this.$emit('handleToggleForm');
         }
     }
