@@ -1,0 +1,37 @@
+listTask: null,
+isShowForm: false,
+strSearch: '',
+orderBy: 'name',
+orderDir: 'asc',
+taskSelected: null
+
+Store => Nơi lưu toàn bộ dữ liệu dùng chung
+
+App
+    HomePage...
+
+    CompControl
+        ControlSort
+        ControlSearch -> CompControl -> App
+            ABC
+                XYZ (Khi dùng Store thì XYZ sẽ lấy data trực tiếp từ Store mà ko cần phải truyền tuần tự từ App với Props Down)
+    CompForm
+        FormAdd
+    TodoListTable
+        TodoListItem
+
+    
+    Props Down - Event up
+    
+    Muốn tương tác (dùng chung data nào đấy) giữa 2 component với nhau (VD: App với XYZ)
+    Dữ liệu đó sẽ được lưu trong App
+        App -> CompControl -> ControlSearch -> ABC -> XYZ (Props Down)
+    
+    Event up
+        XYZ -> ABC -> ControlSearch -> CompControl -> App -> Thay đổi data
+            -> truyền data đã thay đổi xuống comp con -> CompControl -> ControlSearch -> ABC -> XYZ (nhận được data mới từ App do XYZ yêu cầu thay đổi)
+    => Cách này sẽ trở nên phức tạp và khó maintain nếu hệ thống lớn có nhiều comp lồng nhau
+    ===> Sử dụng VueX(thư viện quản lý trạng thái) => Store (tách biệt quản lý dữ liệu ở 1 nơi khác, ko phải lưu ở comp gốc là App nữa mà lưu vào Store)
+
+    - Khi đã dùng Store thì nếu muốn thay đổi dữ liệu thì XYZ chỉ cần kích hoạt event thay đổi đến thẳng Store (khi Store đã thay đổi thì hệ thống phản ứng sẽ hoạt động và data mới sẽ được truyền vào comp con)
+

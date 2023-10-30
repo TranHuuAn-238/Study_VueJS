@@ -1,0 +1,29 @@
+Vue Instance
+    Data => dữ liệu của đối tượng Vue đó
+
+
+Store
+    State => Coi giống như data của từng đối tượng Vue (từng component)
+        mapState -> map vào computed
+    Getters
+        mapGetters -> map vào computed
+    Mutations -> chứa các method dùng để thay đổi giá trị trong state (coi giống như methods)
+        lưu ý: toàn bộ code trong Mutations phải là đồng bộ (không được phép xử lý bất đồng bộ(VD: call API), gọi dữ liệu đến server ở trong Mutations)
+        -> map vào methods
+    Actions -> Chứa các methods dùng để tương tác server, xử lý dữ liệu -> trả dữ liệu đó về Mutations để Mutations thay đổi state (actions ko được thay đổi trực tiếp state mà phải để Mutations)
+        -> map vào methods
+
+
+Computed
+    get -> lấy dữ liệu ra, render vào template html (mặc định là get nếu ko chỉ rõ cả get + set)
+    set -> thiết lập dữ liệu mới
+
+    khi user click button tăng/giảm computed count 1 đơn vị -> set sẽ được chạy do count bị tác động
+        -> thay đổi lại count nằm trong store -> VueJS kích hoạt hệ thống phản ứng trong Store
+        -> đẩy dữ liệu mới về lại các component có sử dụng 'count'
+
+
+Flow theo chuẩn thông thường:
+component v-on kích hoạt 1 sự kiện -> dispatch 1 Action -> trong Action lại commit 1 Mutation -> trong Mutation sẽ thay đổi state
+
+    Lưu ý: trong 1 action ngoài việc commit 1 Mutation thì mình có thể Kích Hoạt 1 action khác thông qua param context:  context.dispatch('actionName')
