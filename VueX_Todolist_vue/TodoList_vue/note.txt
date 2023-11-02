@@ -17,7 +17,7 @@ App
                 XYZ (Khi dùng Store thì XYZ sẽ lấy data trực tiếp từ Store mà ko cần phải truyền tuần tự từ App với Props Down)
     CompForm
         FormAdd
-    TodoListTable
+    TodoListTable -> listTask: null
         TodoListItem
 
     

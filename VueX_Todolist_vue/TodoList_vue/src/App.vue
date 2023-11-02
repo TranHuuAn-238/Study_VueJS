@@ -22,7 +22,6 @@
 			</b-row>
 
 			<todo-list-table 
-				v-bind:listTask="listTaskSort"
 				v-on:handleEdit="handleEdit"
 				v-on:handleDelete="handleDelete"
 			/>
@@ -41,6 +40,9 @@ App
 
 */
 // Lưu dũ liệu -> Không cần -> Mock Data, Fake Data
+
+import { mapState } from "vuex";
+
 import TodoListTable from './components/TodoListTable';
 import CompTitle from './components/CompTitle';
 import CompControl from './components/CompControl';
@@ -58,18 +60,11 @@ export default {
 	},
 	data () {
 		return {
-			listTask: null,
 			isShowForm: false,
 			strSearch: '',
 			orderBy: 'name',
 			orderDir: 'asc',
 			taskSelected: null
-		}
-	},
-	watch: {
-		listTask: function(newTasks) {
-			var tasksString = JSON.stringify(newTasks);
-				localStorage.setItem('tasks', tasksString);
 		}
 	},
 	computed: {
@@ -97,12 +92,12 @@ export default {
 	},
 	created() {
 		// Lấy listTask từ trong localStorage
-		let tasks = localStorage.getItem('tasks');
-		if(tasks !== null) {
-			this.listTask = JSON.parse(tasks);
-		} else {
-			this.listTask = [];
-		}
+		// let tasks = localStorage.getItem('tasks');
+		// if(tasks !== null) {
+		// 	this.listTask = JSON.parse(tasks);
+		// } else {
+		// 	this.listTask = [];
+		// }
 	},
 	methods: {
 		handleEditTaskById(taskEdit) {
