@@ -63,7 +63,7 @@ export default {
     },
     created() {
         let tasks = localStorage.getItem('tasks') || '[]'; // short syntax ko can if else nhu ben App.vue
-        console.log('created TodolistTable.vue', JSON.parse(tasks));
+        // console.log('created TodolistTable.vue', JSON.parse(tasks));
         this.changeTasks(JSON.parse(tasks));
     },
     methods: {

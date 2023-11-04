@@ -13,9 +13,7 @@
 				/>
 
 				<comp-form 
-					v-bind:isShowForm="isShowForm"
 					v-bind:taskSelected="taskSelected"
-					v-on:toggleForm="toggleForm"
 					v-on:handleAddNewTask="handleAddNewTask"
 					v-on:handleEditTaskById="handleEditTaskById"
 				/>
@@ -150,13 +148,13 @@ export default {
 			this.strSearch = data;
 			console.log('handleSearch App.vue: ', data)
 		},
-		toggleForm() {
-			if(this.isShowForm) this.taskSelected = null;
-			// Nếu form đang bật -> isShowForm = true => Thay đổi lại là false
-			// Nếu form đang ẩn -> isShowForm = false => Thay đổi lại là true
-			console.log('toggleForm App.vue');
-			this.isShowForm = !this.isShowForm;
-		}
+		// toggleForm() {
+		// 	if(this.isShowForm) this.taskSelected = null;
+		// 	// Nếu form đang bật -> isShowForm = true => Thay đổi lại là false
+		// 	// Nếu form đang ẩn -> isShowForm = false => Thay đổi lại là true
+		// 	console.log('toggleForm App.vue');
+		// 	this.isShowForm = !this.isShowForm;
+		// }
 	}
 }
 </script>
