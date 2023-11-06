@@ -15,24 +15,25 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 // v-model => v-bind -> v-on:input
 export default {
     name: 'control-search',
-    props: {
-        strSearch: { type: String, default: '' }
-    },
     data() {
         return { }
     },
+    computed: mapState([
+        'strSearch'
+    ]),
     methods: {
         handleClear() {
             // Thay đổi giá trị strSearch về ''
-            this.$emit('handleSearch', '');
+            // this.$emit('handleSearch', '');
+            this.$store.dispatch('handleSearch', '');
         },
         handleSearch(e) {
-            // console.log(e.target);
-            console.log('handleSearch Search.vue');
-            this.$emit('handleSearch', e.target.value);
+            this.$store.dispatch('handleSearch', e.target.value);
+            // console.log('handleSearch Search.vue', e.target);
         }
     }
 }

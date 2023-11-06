@@ -7,5 +7,9 @@ export default {
         // if(this.isShowForm) this.taskSelected = null;
         console.log('Mutation TOGGLE_FORM');
 		state.isShowForm = !state.isShowForm;
+    },
+    HANDLE_SEARCH(state, strSearch) {
+        console.log('Mutation HANDLE_SEARCH', strSearch);
+        state.strSearch = strSearch;
     }
 }

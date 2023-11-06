@@ -9,7 +9,6 @@
 					v-bind:orderDir="orderDir"
 					v-bind:strSearch="strSearch"
 					v-on:handleSort="handleSort"
-					v-on:handleSearch="handleSearch"
 				/>
 
 				<comp-form 
@@ -144,10 +143,10 @@ export default {
 			this.orderDir = data.orderDir;
 			console.log('handleSort App.vue', data);
 		},
-		handleSearch(data) {
-			this.strSearch = data;
-			console.log('handleSearch App.vue: ', data)
-		},
+		// handleSearch(data) {
+		// 	this.strSearch = data;
+		// 	console.log('handleSearch App.vue: ', data)
+		// },
 		// toggleForm() {
 		// 	if(this.isShowForm) this.taskSelected = null;
 		// 	// Nếu form đang bật -> isShowForm = true => Thay đổi lại là false

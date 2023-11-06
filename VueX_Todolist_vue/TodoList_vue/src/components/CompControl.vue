@@ -10,10 +10,7 @@
             <!-- SORT : END -->
 
             <!-- SEARCH : START -->
-            <control-search 
-                v-on:handleSearch="handleSearch"
-                v-bind:strSearch="strSearch"
-            />
+            <control-search />
             <!-- SEARCH : END -->
         </div>
     </div>
@@ -30,7 +27,7 @@ export default {
         ControlSearch
     },
     props: {
-        strSearch: { type: String, default: '' },
+        // strSearch: { type: String, default: '' },
         orderBy: { type: String, default: 'name' },
         orderDir: { type: String, default: 'asc' },
     },
@@ -40,10 +37,10 @@ export default {
         }
     },
     methods: {
-        handleSearch(data) {
-            console.log('handleSearch CompControl.vue: ', data);
-            this.$emit('handleSearch', data);
-        },
+        // handleSearch(data) {
+        //     console.log('handleSearch CompControl.vue: ', data);
+        //     this.$emit('handleSearch', data);
+        // },
         handleSort(data) {
             console.log('handleSort CompControl.vue: ', data);
             this.$emit('handleSort', data);

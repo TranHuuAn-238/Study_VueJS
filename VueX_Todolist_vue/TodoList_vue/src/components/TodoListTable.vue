@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 import TodoListItem from './TodoListItem';
 
 export default {
@@ -51,15 +51,18 @@ export default {
         }
     },
     watch: {
-		listTask: function(newTasks) {
-			var tasksString = JSON.stringify(newTasks);
-				localStorage.setItem('tasks', tasksString);
-		}
+		// listTask: function(newTasks) {
+		// 	var tasksString = JSON.stringify(newTasks);
+		// 		localStorage.setItem('tasks', tasksString);
+		// }
 	},
     computed: {
-        ...mapState([
-            'listTask'
-        ])
+        // ...mapGetters([
+        //     'listTaskSearch'
+        // ]),
+        ...mapGetters({
+            'listTask': 'listTaskSearch'
+        })
     },
     created() {
         let tasks = localStorage.getItem('tasks') || '[]'; // short syntax ko can if else nhu ben App.vue
