@@ -61,7 +61,7 @@ export default {
         //     'listTaskSearch'
         // ]),
         ...mapGetters({
-            'listTask': 'listTaskSearch'
+            'listTask': 'listTaskSearchSort'
         })
     },
     created() {

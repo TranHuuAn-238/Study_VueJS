@@ -4,12 +4,7 @@
 			<comp-title />
 
 			<b-row>
-				<comp-control 
-					v-bind:orderBy="orderBy"
-					v-bind:orderDir="orderDir"
-					v-bind:strSearch="strSearch"
-					v-on:handleSort="handleSort"
-				/>
+				<comp-control />
 
 				<comp-form 
 					v-bind:taskSelected="taskSelected"
@@ -57,44 +52,8 @@ export default {
 	},
 	data () {
 		return {
-			isShowForm: false,
-			strSearch: '',
-			orderBy: 'name',
-			orderDir: 'asc',
 			taskSelected: null
 		}
-	},
-	computed: {
-		listTaskSearch() {
-			const { strSearch } = this;
-			
-			var newItems = this.listTask.filter(item => {
-				return item.name.toLowerCase().includes(strSearch.toLowerCase());
-			});
-			// this.listTask.forEach(function(item, index) {
-			// 	let lowerName = item.name.toLowerCase();
-			// 	let lowerSubString = strSearch.toLowerCase();
-			// 	if(lowerName.includes(lowerSubString)) 
-			// 		newItems.push(item);
-				
-			// });
-			return newItems;
-		},
-		listTaskSort() {
-			var listTask = [...this.listTaskSearch];
-				listTask.sort(this.compareSort);
-				
-			return listTask;
-		}
-	},
-	created() {
-		// Lấy listTask từ trong localStorage
-		// let tasks = localStorage.getItem('tasks');
-		// if(tasks !== null) {
-		// 	this.listTask = JSON.parse(tasks);
-		// } else {
-		// 	this.listTask = [];
-		// }
 	},
 	methods: {
 		handleEditTaskById(taskEdit) {
@@ -130,30 +89,7 @@ export default {
 			// if(idxDelete !== -1) this.listTask.splice(idxDelete, 1);
 
 			console.log("handleDelete App.vue: ", taskDelete);
-		},
-		compareSort(a, b) {
-			var numberSort = this.orderDir === 'asc' ? -1 : 1;
-			
-			if(a[this.orderBy] < b[this.orderBy]) return numberSort;
-			else if(a[this.orderBy] > b[this.orderBy]) return numberSort * (-1);
-			return 0;
-		},
-		handleSort(data) {
-			this.orderBy = data.orderBy;
-			this.orderDir = data.orderDir;
-			console.log('handleSort App.vue', data);
-		},
-		// handleSearch(data) {
-		// 	this.strSearch = data;
-		// 	console.log('handleSearch App.vue: ', data)
-		// },
-		// toggleForm() {
-		// 	if(this.isShowForm) this.taskSelected = null;
-		// 	// Nếu form đang bật -> isShowForm = true => Thay đổi lại là false
-		// 	// Nếu form đang ẩn -> isShowForm = false => Thay đổi lại là true
-		// 	console.log('toggleForm App.vue');
-		// 	this.isShowForm = !this.isShowForm;
-		// }
+		}
 	}
 }
 </script>

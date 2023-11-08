@@ -3,5 +3,7 @@ import tasks from '../mocks/tasks'
 export default {
     listTask: tasks,
     isShowForm: false,
-    strSearch: ''
+    strSearch: '',
+    orderBy: 'name',
+	orderDir: 'asc',
 }
