@@ -15,5 +15,10 @@ export default {
         // payload trong actions/mutations LUON la 1 object
         // console.log('Action handleSort', orderBy, orderDir);
         commit('HANDLE_SORT', { orderBy, orderDir });
+    },
+    handleDelete({ commit, state }, taskDelete) {
+        console.log('Action handleDelete', taskDelete);
+		let newListTask = state.listTask.filter(item => item.id !== taskDelete.id);
+        commit('CHANGE_TASKS', newListTask);
     }
 }

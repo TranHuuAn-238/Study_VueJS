@@ -18,7 +18,6 @@
                     v-bind:task="task"
                     v-bind:index="index + 1"
                     v-on:handleEdit="handleEdit"
-                    v-on:handleDelete="handleDelete"
                 />
                 <!-- <todo-list-item /> -->
                 <!-- <todo-list-item /> -->
@@ -76,10 +75,6 @@ export default {
         handleEdit(taskEdit) {
             console.log('handleEdit ListTable.vue', taskEdit);
             this.$emit('handleEdit', taskEdit);
-        },
-        handleDelete(taskDelete) {
-            console.log('handleDelete ListTable.vue', taskDelete);
-            this.$emit('handleDelete', taskDelete);
         }
     }
 }

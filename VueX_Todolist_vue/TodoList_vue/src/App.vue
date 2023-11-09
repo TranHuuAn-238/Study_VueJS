@@ -15,7 +15,6 @@
 
 			<todo-list-table 
 				v-on:handleEdit="handleEdit"
-				v-on:handleDelete="handleDelete"
 			/>
 		</b-container>
 	</div>
@@ -73,22 +72,6 @@ export default {
 			this.taskSelected = taskEdit;
 			console.log('handleEdit App.vue', taskEdit);
 			// console.log(this);
-		},
-		handleDelete(taskDelete) {
-			// Cách 1
-			this.listTask = this.listTask.filter(item => item.id !== taskDelete.id);
-
-			// Cách 2
-			// var idxDelete = -1;
-			// for(var index = 0; index < this.listTask.length; index++) {
-			// 	if(this.listTask[index].id === taskDelete.id) {
-			// 		idxDelete = index;
-			// 		break;
-			// 	}
-			// }
-			// if(idxDelete !== -1) this.listTask.splice(idxDelete, 1);
-
-			console.log("handleDelete App.vue: ", taskDelete);
 		}
 	}
 }
