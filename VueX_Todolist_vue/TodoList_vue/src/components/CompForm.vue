@@ -71,7 +71,8 @@ export default {
     },
     methods: {
         ...mapActions([
-            'toggleForm'
+            'toggleForm',
+            'handleAddNewTask'
         ]),
         handleEditTask() {
             let objTaskEdit = {
@@ -84,15 +85,19 @@ export default {
             // console.log("handleEditTask Form.vue", this.taskSelected);
         },
         handleAddNew() {
-            let objTask = {
-                id: uuidv4(),
-                name: this.taskname,
-                level: parseInt(this.level)
-            }
-            // Kiểm tra dữ liệu hợp lệ????
+            // kiem tra du lieu hop le
+            if (this.taskname.trim()) {
+                let objTask = {
+                    id: uuidv4(),
+                    name: this.taskname.trim(),
+                    level: parseInt(this.level)
+                }
 
-            this.$emit('handleAddNewTask', objTask);
-            this.handleCancel();
+                this.handleAddNewTask(objTask);
+                this.handleCancel();
+            } else {
+                alert('Please enter task name');
+            }
         },
         // handleToggleForm() {
         //     console.log("handleAddTask CompForm.vue");
