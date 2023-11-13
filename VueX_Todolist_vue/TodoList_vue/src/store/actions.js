@@ -24,4 +24,19 @@ export default {
     handleAddNewTask({ commit }, task) {
         commit('ADD_NEW_TASK', task);
     },
+    handleEdit({ commit }, taskSelected) {
+        commit('HANDLE_EDIT', taskSelected);
+    },
+    handleEditTaskById({ commit, state, dispatch }, taskEdit) {
+        let index = state.listTask.findIndex(item => item.id === taskEdit.id);
+        let listTaskClone = [...state.listTask];
+
+        
+        if(index !== -1) {
+            listTaskClone.splice(index, 1, taskEdit);
+            // dispatch('toggleForm');
+            commit('TOGGLE_FORM');
+            commit("CHANGE_TASKS", listTaskClone);
+        }
+    },
 }

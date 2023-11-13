@@ -6,15 +6,10 @@
 			<b-row>
 				<comp-control />
 
-				<comp-form 
-					v-bind:taskSelected="taskSelected"
-					v-on:handleEditTaskById="handleEditTaskById"
-				/>
+				<comp-form />
 			</b-row>
 
-			<todo-list-table 
-				v-on:handleEdit="handleEdit"
-			/>
+			<todo-list-table />
 		</b-container>
 	</div>
 </template>
@@ -50,24 +45,21 @@ export default {
 	},
 	data () {
 		return {
-			taskSelected: null
+			
+		}
+	},
+	// them vao LocalStorage
+	computed: mapState([
+		'listTask'
+	]),
+	watch: {
+		listTask: function(newTasks) {
+			var tasksString = JSON.stringify(newTasks);
+				localStorage.setItem('tasks', tasksString);
 		}
 	},
 	methods: {
-		handleEditTaskById(taskEdit) {
-			let index = this.listTask.findIndex(item => item.id === taskEdit.id);
-			
-			if(index !== -1) {
-				this.listTask.splice(index, 1, taskEdit);
-				this.toggleForm();
-			}
-		},
-		handleEdit(taskEdit) {
-			this.isShowForm = true;
-			this.taskSelected = taskEdit;
-			console.log('handleEdit App.vue', taskEdit);
-			// console.log(this);
-		}
+		
 	}
 }
 </script>

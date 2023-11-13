@@ -6,4 +6,5 @@ export default {
     strSearch: '',
     orderBy: 'name',
 	orderDir: 'asc',
+    taskSelected: null
 }

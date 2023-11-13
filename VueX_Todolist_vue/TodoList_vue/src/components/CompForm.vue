@@ -43,11 +43,9 @@ export default {
     components: {
         FormAdd
     },
-    props: {
-        taskSelected: { type: Object, default: null }
-    },
     computed: mapState([
-        'isShowForm'
+        'isShowForm',
+        'taskSelected'
     ]),
     data() {
         return {
@@ -66,13 +64,11 @@ export default {
             console.log("watcher taskSelected", newData, oldData);
         }
     },
-    beforeUpdate() {
-        
-    },
     methods: {
         ...mapActions([
             'toggleForm',
-            'handleAddNewTask'
+            'handleAddNewTask',
+            'handleEditTaskById'
         ]),
         handleEditTask() {
             let objTaskEdit = {
@@ -80,7 +76,7 @@ export default {
                 name: this.taskname,
                 level: parseInt(this.level)
             }
-            this.$emit('handleEditTaskById', objTaskEdit);
+            this.handleEditTaskById(objTaskEdit);
             this.handleResetData();
             // console.log("handleEditTask Form.vue", this.taskSelected);
         },

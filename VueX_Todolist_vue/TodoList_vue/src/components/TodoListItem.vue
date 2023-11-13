@@ -43,10 +43,11 @@ export default {
     },
     methods: {
         ...mapActions({
-            'actionHandleDelete': 'handleDelete'
+            'actionHandleDelete': 'handleDelete',
+            'actionHandleEdit': 'handleEdit'
         }),
         handleEdit() {
-            this.$emit('handleEdit', this.task)
+            this.actionHandleEdit(this.task);
         },
         handleDelete() {
             if(confirm('Bạn có muốn xóa task có tên là ' + this.task.name)) {

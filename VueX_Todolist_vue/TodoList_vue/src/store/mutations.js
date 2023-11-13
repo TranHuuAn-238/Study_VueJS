@@ -4,7 +4,7 @@ export default {
         state.listTask = newTasks;
     },
     TOGGLE_FORM(state) {
-        // if(this.isShowForm) this.taskSelected = null;
+        if(state.isShowForm) state.taskSelected = null;
         // console.log('Mutation TOGGLE_FORM');
 		state.isShowForm = !state.isShowForm;
     },
@@ -19,5 +19,9 @@ export default {
     },
     ADD_NEW_TASK(state, task) {
         state.listTask.push(task);
+    },
+    HANDLE_EDIT(state, taskEdit) {
+        state.isShowForm = true;
+		state.taskSelected = taskEdit;
     }
 }

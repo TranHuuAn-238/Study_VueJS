@@ -49,12 +49,6 @@ export default {
             
         }
     },
-    watch: {
-		// listTask: function(newTasks) {
-		// 	var tasksString = JSON.stringify(newTasks);
-		// 		localStorage.setItem('tasks', tasksString);
-		// }
-	},
     computed: {
         // ...mapGetters([
         //     'listTaskSearch'
