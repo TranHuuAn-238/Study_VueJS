@@ -1,24 +1,39 @@
 <template>
     <tbody id="my-cart-body">
         <!-- CART BODY -->
-        <tr>
-            <th scope="row">1</th>
-            <td>Lorem ipsum.</td>
-            <td>12 USD</td>
-            <td><input name="cart-item-quantity-1" type="number" value="1" min="1"></td>
-            <td><strong>12 USD</strong></td>
-            <td>
-                <a class="label label-info update-cart-item" href="#" data-product="">Update</a>
-                <a class="label label-danger delete-cart-item" href="#" data-product="">Delete</a>
-            </td>
-        </tr>
+        <template v-if="items.length">
+            <cart-body-item 
+                v-for="(item, index) in items"
+                :index="index" 
+                :key="item.product.id" 
+                :cart="item"
+            />
+        </template>
+        
+        <tr v-else><th colspan="6">{{ NOTI_EMPTY_PRODUCT }}</th></tr>
     </tbody>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { NOTI_EMPTY_PRODUCT } from "../constants/config";
+import CartBodyItem from "./CartBodyItem";
+
 export default {
     name: 'cart-body-table',
-    
+    data() {
+        return {
+            NOTI_EMPTY_PRODUCT
+        }
+    },
+    components: {
+        CartBodyItem
+    },
+    computed: {
+        ...mapState({
+            items: state => state.cart.listCarts
+        })
+    }
 }
 </script>
 

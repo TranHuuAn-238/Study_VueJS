@@ -14,6 +14,8 @@
 				<cart-wrapper />
 				<!-- CART : END -->
 			</div>
+			<!-- su dung v-bind(:) de truyen so neu ko prop duration se bi hieu la chuoi  -->
+			<notifications group="noti" position="bottom right" :duration="2000" />
 		</div>
 	</div>
 </template>
@@ -28,10 +30,21 @@ export default {
 		CompTitle,
 		ProductList,
 		CartWrapper
+	},
+	data() {
+		return {
+
+		}
+	},
+	mounted() {
+		
 	}
 }
 </script>
 
 <style>
-
+	.vue-notification-group {
+		padding-right: 10px;
+		padding-bottom: 10px;
+	}
 </style>
