@@ -4,5 +4,8 @@ export default {
     },
     BUY_PRODUCT(state, data) {
         state.listCarts.push(data);
+    },
+    CHANGE_LIST_CARTS: (state, newListCarts) => {
+        state.listCarts = newListCarts;
     }
 }
