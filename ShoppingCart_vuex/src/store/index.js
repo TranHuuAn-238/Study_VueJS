@@ -11,12 +11,13 @@ import mutations from "./mutations";
 import moduleCart from "./cart";
 import moduleProduct from "./product";
 
-const myPlugin = (store) => {
+const localStorage = (store) => {
     // called when the store is initialized - plugin duoc chay khi store duoc khoi tao
-    console.log('myPlugin run', store);
+    // console.log('myPlugin run', store);
     store.subscribe((mutation, state) => {
         // subscribe duoc chay sau khi mutation duoc kich hoat
-        console.log('subscribe run - ', mutation, ' - ', state);
+        // console.log('subscribe run - ', mutation, ' - ', state);
+        window.localStorage.setItem('cart', JSON.stringify(state.cart));
         // called after every mutation.
         // The mutation comes in the format of `{ type, payload }`.
     })
@@ -33,7 +34,7 @@ const store = new Vuex.Store({
         cart: moduleCart,
         product: moduleProduct
     },
-    plugins: [myPlugin]
+    plugins: [localStorage]
 });
 
 // console.log("store = ", store.state.cart.count);

@@ -1,5 +1,5 @@
 export default {
-    increment: state => {
-        console.log("state mutations root = ", state);
+    SET_LOADING: (state, loading = false) => {
+        state.isLoading = loading;
     }
 }

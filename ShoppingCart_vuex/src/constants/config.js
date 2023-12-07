@@ -1,6 +1,11 @@
 export const NOTI_EMPTY_PRODUCT     = 'Empty product in your cart';
 
-export const NOTI_ACT_UPDATE = 'Updated successfull !!';
+export const NOTI_ACT_UPDATE = {
+    group: 'noti',
+    type: 'success',
+    title: 'Success!',
+    text: 'Update Product successfull.'
+};
 
 
 export const NOTI_GREATER_THAN_ONE = {
