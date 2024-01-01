@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<page-header />
+		<page-header 
+			title="Clean Blog"
+		/>
 		<blog-list />
 	</div>
 </template>

@@ -2,7 +2,7 @@
 	<div id="app">
 		<navigation />
 
-		<about-us />
+		<router-view />
 
 		<comp-footer />
 	</div>
@@ -12,13 +12,11 @@
 import Navigation from "./components/Navigation";
 import CompFooter from "./components/CompFooter";
 
-import AboutUs from "./pages/AboutUs";
 export default {
 	name: 'app',
 	components: {
 		Navigation,
-		CompFooter,
-		AboutUs
+		CompFooter
 	},
 	data () {
 		return {

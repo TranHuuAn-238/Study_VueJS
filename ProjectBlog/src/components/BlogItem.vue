@@ -1,22 +1,45 @@
 <template>
-    <div class="post-preview">
-        <a href="post.html">
+    <div class="post-preview" v-if="blog">
+        <router-link :to="{ name: 'blog-detail', params: { id: blog.id, title: formatTitle } }">
             <h2 class="post-title">
-                Man must explore, and this is exploration at its greatest
+                {{ blog.title }}
             </h2>
             <h3 class="post-subtitle">
-                Problems look mighty small from 150 miles up
+                {{ blog.abstract }}
             </h3>
-        </a>
+        </router-link>
         <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 24, 2019</p>
+            <a href="#">{{ blog.fullName }}</a>
+            on {{ formatDate }}</p>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'blog-item'
+    name: 'blog-item',
+    props: {
+        blog: { type: Object, default: null }
+    },
+    computed: {
+        formatDate() {
+            var date = this.blog.create_at;
+            var monthNames = [
+                "January", "February", "March",
+                "April", "May", "June", "July",
+                "August", "September", "October",
+                "November", "December"
+            ];
+
+            var day = date.getDate();
+            var monthIndex = date.getMonth();
+            var year = date.getFullYear();
+
+            return day + ' ' + monthNames[monthIndex] + ' ' + year;
+        },
+        formatTitle() {
+            return this.blog.title.split(' ').join('-').toLowerCase().replace('.', '');
+        }
+    }
 }
 </script>
 

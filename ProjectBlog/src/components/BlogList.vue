@@ -2,7 +2,12 @@
     <div class="container">
 		<div class="row">
 			<div class="col-lg-8 col-md-10 mx-auto">
-				<div class="post-preview">
+				<blog-item 
+					v-for="item in listBlogs"
+					:key="item.id"
+					:blog="item"
+				/>
+				<!-- <div class="post-preview">
 					<a href="post.html">
 						<h2 class="post-title">
 							Man must explore, and this is exploration at its greatest
@@ -54,7 +59,7 @@
 						<a href="#">Start Bootstrap</a>
 						on July 8, 2019</p>
 				</div>
-				<hr>
+				<hr> -->
 				<!-- Pager -->
 				<div class="clearfix">
 					<a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
@@ -65,8 +70,20 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+import BlogItem from './BlogItem.vue';
+
 export default {
-    name: 'blog-list'
+    name: 'blog-list',
+	components: {
+		BlogItem
+	},
+	computed: {
+		...mapState([
+			'listBlogs'
+		])
+	}
 }
 </script>
 

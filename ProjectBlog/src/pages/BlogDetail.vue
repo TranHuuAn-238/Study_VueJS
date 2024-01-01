@@ -1,6 +1,15 @@
 <template>
 	<div>
-		<page-header />
+		<page-header
+			bg="/dist/img/post-bg.jpg"
+			className="post-heading"
+			title="Man must explore, and this is exploration at its greatest"
+			subHeading="Problems look mighty small from 150 miles up"
+		>
+			<span class="meta">Posted by
+				<a href="#">Start Bootstrap</a>
+				on August 24, 2019</span>
+		</page-header>
 		<article>
 			<div class="container">
 				<div class="row">
