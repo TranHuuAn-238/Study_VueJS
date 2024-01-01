@@ -9,18 +9,19 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="index.html">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="about.html">About</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="post.html">Sample Post</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="contact.html">Contact</a>
-					</li>
+					
+					<router-link
+						v-for="link in listLink"
+						:key="link.to"
+						:to="link.to"
+						:exactActiveClass="link.activeClass"
+						tag="li"
+						activeClass=""
+						class="nav-item"
+					>
+						<a class="nav-link">{{ link.text }}</a>
+					</router-link>
+					
 				</ul>
 			</div>
 		</div>
@@ -29,7 +30,17 @@
 
 <script>
 export default {
-	name: 'navigation'
+	name: 'navigation',
+	data() {
+		return {
+			listLink: [
+				{ to: '/', text: 'Home', activeClass: 'active' },
+				{ to: '/about-us', text: 'About', activeClass: 'active' },
+				{ to: '/contact', text: 'Contact', activeClass: 'active' },
+				{ to: '/login', text: 'Login', activeClass: 'active' },
+			]
+		}
+	}
 }
 </script>
 
