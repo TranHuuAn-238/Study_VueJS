@@ -7,17 +7,21 @@
 			</div>
 		</main>
 		<app-footer v-if="isRenderFooter" />
+		<loading :class="{ show: isLoading }" />
 	</div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
+import Loading from './components/Loading.vue';
 export default {
 	name: 'app',
 	components: {
 		AppHeader,
-		AppFooter
+		AppFooter,
+		Loading
 	},
 	data () {
 		return {
@@ -25,6 +29,9 @@ export default {
 		}
 	},
 	computed: {
+		...mapState([
+			'isLoading'
+		]),
 		isRenderHeader() {
 			var arrRouter = ['login', 'register'];
 			var routerName = this.$route.name;
@@ -43,6 +50,9 @@ export default {
 			}
 			return true;
 		}
+	},
+	methods: {
+
 	}
 }
 </script>
