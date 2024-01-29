@@ -1,3 +1,4 @@
 export default {
-    currentUser: null
+    currentUser: null,  // sau khi login
+    users: {}
 }

@@ -120,7 +120,7 @@ resultPost.then(function(response) {
     var end = new Date().getTime();
     // console.log('response: ', response.json());
     console.log('time = ', end - start);
-    return response.json();
+    return response.json(); 
 }).then(function(myJson) {
     console.log(myJson);
 });

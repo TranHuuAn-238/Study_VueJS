@@ -1,11 +1,16 @@
 <template>
     <div class="row">
         <div class="col-lg-8">
-            <div class="ass1-section__list">
+            <div class="ass1-section__list" v-if="getDataPostDetail && getDataPostDetail.post">
                 <div class="ass1-section">
-                    <post-item />
+                    <post-item :post="getDataPostDetail.post" />
 
-                    <post-feeling />
+                    <!-- <post-feeling /> -->
+                    <ul>
+                        <li v-for="item in getDataPostDetail.categories" :key="item.TAG_ID">
+                            <router-link :to="getLinkCategory(item)">{{ item.tag_value }}</router-link>
+                        </li>
+                    </ul>
                 </div>
 
                 <post-comment-add />
@@ -25,11 +30,15 @@ import PostItem from '../components/PostItem'
 import PostFeeling from '../components/PostFeeling'
 import PostComments from '../components/PostComments'
 import PostCommentAdd from '../components/PostCommentAdd'
+
+import { mapActions, mapGetters } from 'vuex';
+import { removeVietnameseFromString } from '../helpers';
+
 export default {
     name: 'post-detail',
     data() {
         return {
-            
+            postId: this.$route.params.id
         }
     },
     components: {
@@ -38,6 +47,43 @@ export default {
         PostFeeling,
         PostComments,
         PostCommentAdd
+    },
+    watch: {
+        $route(to, from) {
+            this.postId = to.params.id;
+            this.fetchDataPostDetail();
+        }
+    },
+    computed: {
+        ...mapGetters([
+            'getDataPostDetail'
+        ])
+    },
+    created() {
+        // load lai trang lan dau tien
+        this.fetchDataPostDetail();
+        // this.getDataPostDetail;
+    },
+    methods: {
+        ...mapActions([
+            'getPostDetailById'
+        ]),
+        fetchDataPostDetail() {
+            this.getPostDetailById(this.postId).then(res => {
+                if (!res.ok) {
+                    this.$router.push('/');
+                }
+            })
+        },
+        getLinkCategory(category) {
+            return {
+                name: 'home-page',
+                query: {
+                    text: removeVietnameseFromString(category.tag_value),
+                    tagIndex: category.tag_index
+                }
+            }
+        }
     }
 }
 </script>

@@ -2,6 +2,7 @@ import axiosInstance from '../../plugins/axios'
 import { PAGE_SIZE, CURRENT_PAGE } from '../../constants';
 
 export default {
+    // function async luon tra ve 1 Promise => co the .then() khi goi ra su dung
     async getListPostHasPaging({ commit }, { pagesize = PAGE_SIZE, currPage = CURRENT_PAGE, tagIndex = null }) {
         commit('SET_LOADING', true);
         try {
@@ -29,6 +30,7 @@ export default {
             }
         } catch (error) {
             // loi he thong
+            commit('SET_LOADING', false);
             console.log('error: ', error);
         }
     },
@@ -53,4 +55,28 @@ export default {
     //         console.log('error: ', error);
     //     }
     // }
+    async getPostDetailById({ commit, dispatch }, postid) {
+        commit('SET_LOADING', true);
+        try {
+            var result = await axiosInstance.get('/post/post.php?postid=' + postid);
+
+            if (result.data.status === 200) {
+                // goi tiep sang API user
+                var resultUser = await dispatch('getUserById', result.data.data.post.USERID);
+                commit('SET_LOADING', false);
+                commit('SET_POST_DETAIL', result.data.data);
+                return {
+                    ok: true,
+                    data: result.data.data,
+                    error: null
+                }
+            }
+        } catch (error) {
+            commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    }
 }
