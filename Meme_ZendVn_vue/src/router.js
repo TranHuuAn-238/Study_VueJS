@@ -10,6 +10,8 @@ import PostUpload from './pages/PostUpload'
 import UserPage from './pages/UserPage'
 import UserProfile from './pages/UserProfile'
 
+import { ifNotAuthenticated, ifAuthenticated } from "./plugins/authenticate";
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -21,17 +23,20 @@ const routes = [
     {
         path: '/login',
         name: 'login',
-        component: Login
+        component: Login,
+        beforeEnter: ifNotAuthenticated
     },
     {
         path: '/register',
         name: 'register',
-        component: Register
+        component: Register,
+        beforeEnter: ifNotAuthenticated
     },
     {
         path: '/user/:id',
         name: 'user-page',
-        component: UserPage
+        component: UserPage,
+        beforeEnter: ifAuthenticated
     },
     {
         path: '/user/:id/profile',
@@ -60,3 +65,7 @@ const router = new VueRouter({
 });
 
 export default router;
+
+// 1. Router chi cho phep vao khi chua dang nhap (Login, Register)
+// 2. Router chi cho phep vao khi da dang nhap
+// 3. Router cho phep vao thoai mai

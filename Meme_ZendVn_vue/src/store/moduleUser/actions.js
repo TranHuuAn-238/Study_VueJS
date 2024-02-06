@@ -1,5 +1,7 @@
 import axiosInstance from '../../plugins/axios'
 
+import { parseJwt } from '../../helpers';
+import { CONFIG_ACCESS_TOKEN } from "../../constants";
 export default {
     async getUserById({ commit }, userid) {
         try {
@@ -17,6 +19,153 @@ export default {
                 error: result.message
             }
         } catch (error) {
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+    async login({ commit, dispatch }, { email = "", password = "" }) {
+        commit('SET_LOADING', true);
+        try {
+            let data = {
+                email: email,
+                password: password
+            }
+            var result          = await axiosInstance.post('/member/login.php', data);
+            
+            commit('SET_LOADING', false);
+            if (result.data.status === 200) {
+                commit('SET_USER_INFO', result.data.user);
+                commit('SET_LOGIN_INFO', result.data);
+
+                dispatch('getListPostByUserId', result.data.user.USERID);
+
+                return {
+                    ok: true,
+                    error: null,
+                    data: result.data
+                }
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }
+            }
+            
+        } catch (error) {
+            commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            } 
+        }
+    },
+    async logout({ commit }) {
+        commit('SET_LOGOUT');
+        return null;
+    },
+    async checkLogin({ commit, dispatch }) {
+        try {
+            let tokenLocal = localStorage.getItem(CONFIG_ACCESS_TOKEN);
+            let userObj = parseJwt(tokenLocal);
+
+            if (userObj) {
+                // let resultUser     = await dispatch('getUserById', userObj.id);
+                // let resultPostUser = await dispatch('getListPostByUserId', userObj.id);
+                let promiseUser     = dispatch('getUserById', userObj.id);
+                let promisePostUser = dispatch('getListPostByUserId', userObj.id);
+
+                // promise all de chay dong thoi 2 promise cho nhanh vi 2 promise nay cung ko phu thuoc gi nhau
+                let [resultUser, resultPostUser] = await Promise.all([promiseUser, promisePostUser]);                
+
+                if (resultUser.ok && resultPostUser.ok) {
+                    let data = {
+                        user: resultUser.data,
+                        token: tokenLocal
+                    }
+                    commit('SET_LOGIN_INFO', data);
+                    return {
+                        ok: true,
+                        error: null
+                    }
+                }
+            }
+            return {
+                ok: false
+            }
+            
+        } catch (error) {
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+    async getListPostByUserId({ commit }, userid) {
+        try {
+            let config = {
+                params: {
+                    userid: userid,
+                },
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem(CONFIG_ACCESS_TOKEN)
+                }
+            }
+            var result = await axiosInstance.get('/post/getListPostUserID.php', config);
+            if (result.data.status === 200) {
+                let objData = {
+                    posts: result.data.posts,
+                    userid: userid
+                }
+                commit('SET_USER_POSTS', objData);
+                return {
+                    ok: true,
+                    error: null
+                }
+            }
+            return {
+                ok: false,
+                error: null
+            }
+
+        } catch (error) {
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+    async register({ commit, dispatch }, data) {
+        commit('SET_LOADING', true);
+        try {
+            var result = await axiosInstance.post('/member/register.php', data);
+            commit('SET_LOADING', false);
+            // console.log(result);
+            if (result.data.status === 200) {
+                let objLoginInfo = {
+                    user: result.data.user,
+                    token: result.data.token
+                }
+                commit('SET_USER_INFO', result.data.user);
+                commit('SET_LOGIN_INFO', objLoginInfo);
+
+                dispatch('getListPostByUserId', result.data.user.USERID);
+                
+                return {
+                    ok: true,
+                    data: result.data,
+                    error: null
+                }
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }                
+            }
+        } catch (error) {
+            commit('SET_LOADING', false);
             return {
                 ok: false,
                 error: error.message
