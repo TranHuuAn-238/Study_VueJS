@@ -18,7 +18,10 @@ export default {
         // state.ACCESS_TOKEN = token;
         state[CONFIG_ACCESS_TOKEN] = token;
         state.currentUser = user;
+    },
+    SET_CURRENT_USER(state, user) {
+        state.currentUser = user;
     }
 }
 
-// truyen bien ma ko phai truyen string thi dung ngoac vuong: state[CONFIG_ACCESS_TOKEN]
+// truyen bien ma ko phai truyen string thi dung ngoac vuong nhu array: state[CONFIG_ACCESS_TOKEN]

@@ -20,14 +20,15 @@
 				</router-link>
 				
 				<!-- If Already Login -->
-				<div v-else class="wrapper-user">
-					<a 
+				<div v-else-if="currentUser" class="wrapper-user">
+					<router-link 
+						:to="{ name: 'user-page', params: { id: currentUser.USERID } }"
 						class="user-header">
 						<span class="avatar">
 							<img :src='getAvatar' alt="avatar">
 						</span>
 						<span class="email">{{ currentUser.email }}</span>
-					</a>
+					</router-link>
 					<div v-on:click="handleLogout" class="logout">Logout</div>
 				</div>
 			</div>
