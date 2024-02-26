@@ -76,7 +76,7 @@ export default {
                     this.changePassword(data).then(res => {
                         if (res.ok) {
                             alert(res.message);
-                            this.$router.push('/'); // nho khai bao arrow function de dung duoc bien this
+                            this.$router.push('/'); // nho khai bao arrow function de dung duoc bien this cua Vue
                         } else {
                             alert(res.error);
                         }
