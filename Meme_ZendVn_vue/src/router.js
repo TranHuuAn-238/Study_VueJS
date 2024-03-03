@@ -58,7 +58,8 @@ const routes = [
     {
         path: '/upload',
         name: 'upload',
-        component: PostUpload
+        component: PostUpload,
+        beforeEnter: ifAuthenticated
     },
     {
         path: '/search',

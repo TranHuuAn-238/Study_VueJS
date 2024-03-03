@@ -1,5 +1,5 @@
 import axiosInstance from '../../plugins/axios'
-import { PAGE_SIZE, CURRENT_PAGE } from '../../constants';
+import { PAGE_SIZE, CURRENT_PAGE, CONFIG_ACCESS_TOKEN } from '../../constants';
 
 export default {
     // function async luon tra ve 1 Promise => co the .then() khi goi ra su dung
@@ -93,6 +93,48 @@ export default {
             } else {
                 return {
                     ok: false
+                }
+            }
+        } catch (error) {
+            commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+    async createNewPost({ commit }, { post_content = '', category = '', url_image = '', obj_image = null }) {
+        commit('SET_LOADING', true);
+        try {
+            let bodyFormData = new FormData();
+
+            bodyFormData.append('category', category);
+            bodyFormData.append('url_image', url_image);
+            bodyFormData.append('post_content', post_content);
+
+            if (obj_image) {
+                bodyFormData.append('obj_image', obj_image);
+            }
+
+            let config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': 'Bearer ' + localStorage.getItem(CONFIG_ACCESS_TOKEN)
+
+                }
+            }
+            var result = await axiosInstance.post('/post/addNew.php', bodyFormData, config);
+            commit('SET_LOADING', false);
+            
+            if (result.data.status === 200) {
+                return {
+                    ok: true,
+                    data: result.data.data // posts + categories
+                }
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
                 }
             }
         } catch (error) {
