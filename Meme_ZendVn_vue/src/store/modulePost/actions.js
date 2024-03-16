@@ -62,9 +62,22 @@ export default {
 
             if (result.data.status === 200) {
                 // goi tiep sang API user
-                var resultUser = await dispatch('getUserById', result.data.data.post.USERID);
+                var promiseUser = dispatch('getUserById', result.data.data.post.USERID);
+                var promiseComments = dispatch('getListCommentByPostid', postid);
+                
+                let [resultUser, resultComments] = await Promise.all([ promiseUser, promiseComments ]);
+                let dataPostDetail = {
+                    ...result.data.data,
+                    comments: []
+                }
+
+                if (resultComments.ok) {
+                    dataPostDetail.comments = resultComments.comments;
+                }
+
                 commit('SET_LOADING', false);
-                commit('SET_POST_DETAIL', result.data.data);
+                commit('SET_POST_DETAIL', dataPostDetail);
+                
                 return {
                     ok: true,
                     data: result.data.data,
@@ -144,6 +157,68 @@ export default {
                 error: error.message
             }
         }
-    }
+    },
+    async getListCommentByPostid({ commit }, postid) {
+        try {
+            var result = await axiosInstance.get('/comment/comments.php?postid=' + postid);
+            if (result.data.status === 200) {
+                return {
+                    ok: true,
+                    comments: result.data.comments
+                }
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }
+            }
+        } catch (error) {
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    },
+    async addNewComment({ commit, rootState }, { comment = '', postid = null }) {
+        try {
+            commit('SET_LOADING', true);
+            let data = {
+                comment,
+                postid
+            }
+            let config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem(CONFIG_ACCESS_TOKEN)
 
+                }
+            }
+            var result = await axiosInstance.post('/comment/add_new.php', data, config);
+            commit('SET_LOADING', false);
+
+            if (result.data.status === 200) {
+                let comment = {
+                    ...result.data.body,
+                    fullname: rootState.user.currentUser.fullname,
+                    profilepicture: rootState.user.currentUser.profilepicture,
+                }
+                commit('PUSH_LIST_COMMENTS', comment);
+                return {
+                    ok: true,
+                    comment: comment 
+                }
+            } else {
+                return {
+                    ok: false,
+                    error: result.data.error
+                }
+            }
+        } catch (error) {
+            commit('SET_LOADING', false);
+            return {
+                ok: false,
+                error: error.message
+            }
+        }
+    }
 }
