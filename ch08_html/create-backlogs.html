@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kanban Board</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <ul>
+                    <li><a href="/">Trang Chủ</a></li>
+                    <li><a href="/">Dự án</a></li>
+                </ul>
+                <ul class="right">
+                    <li>Đăng nhập với <a href="/">example@gmail.com</a></li>
+                    <li><a href="/">Đăng xuất</a></li>
+                </ul>
+            </div>
+        </header>
+        <div class="main-header">
+            <div class="container">
+                <h3 class="site-title">Dự án Landmark 81 Website</h3>
+            </div>
+        </div>
+        <!-- End Header -->
+
+        <!-- Content -->
+        
+        <main class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="main-content">
+                        <div class="page-title">
+                            <span>Create New Backlog Item</span>
+                        </div>
+                        <div class="create-board">
+                            <div class="row">
+                                <div class="col-xs-12 input-group">
+                                    <label>Tiêu đề</label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                                <div class="col-xs-12 input-group">
+                                    <label>Mô tả tác vụ</label>
+                                    <textarea type="text" class="form-control"></textarea>
+                                </div>
+                                <div class="col-xs-12 input-group">
+                                    <label>Tên Project</label>
+                                    <input type="text" class="form-control" />
+                                </div>
+                                <div class="col-xs-6 input-group">
+                                    <label>Ngày giờ bắt đầu</label>
+                                    <input type="date" class="form-control" />
+                                </div>
+                                <div class="col-xs-6 input-group">
+                                    <label>Deadline</label>
+                                    <input type="date" class="form-control" />
+                                </div>
+                                <div class="col-xs-6 input-group">
+                                    <label>Trang thái</label>
+                                    <select class="input-group input-select">
+                                        <option value="0">Todo</option>
+                                        <option value="1">In process</option>
+                                        <option value="2">To verify</option>
+                                        <option value="3">Done</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-6 input-group">
+                                    <label>Độ ưu tiên</label>
+                                    <select class="input-group input-select">
+                                        <option value="0">Normal</option>
+                                        <option value="1">Low</option>
+                                        <option value="2">Urgent</option>
+                                        <option value="3">Important</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-6 input-group">
+                                    <label>Giai đoạn</label>
+                                    <select class="input-group input-select">
+                                        <option value="Front End">Front End</option>
+                                        <option value="Backend">Back End</option>
+                                        <option value="Design">Design</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-6 input-group">
+                                    <label>Thành viên đảm nhận</label>
+                                    <select class="input-group input-select">
+                                        <option value="luctc">@luctc</option>
+                                        <option value="khang">@khang</option>
+                                        <option value="nam">@nam</option>
+                                        <option value="tam">@tam</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-12 btn-submit-create">
+                                    <button class="btn btn-success" type="submit">Tạo mới một BackLog</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="side-bar">
+                        <div class="page-title">
+                            <span>Thành viên</span>
+                        </div>
+                        <ul class="list-members">
+                            <li>luctc</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
