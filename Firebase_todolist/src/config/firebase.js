@@ -32,10 +32,40 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 
-database.ref('tasks').set({
-    username: 'edit test',
-    email: 'email',
-    profile_picture : 'imageUrl'
-});
+// database.ref('tasks/dsadad-sadas-id').set({
+//     username: 'edit test',
+//     email: 'email',
+//     profile_picture : 'imageUrl'
+// });
+
+// neu ko chi dinh id thi firebase se tu tao id, co the tu tao id rieng sd uuid lam id
+// const taskRef = database.ref('tasks/my-id').set({
+//     abc: 'sss'
+// });
+
+// const taskRef = database.ref('tasks');
+// taskRef.push({
+//     title: 'title 1',
+//     name: 'abc'
+// })
+
+/*
+    data luu trong chuong 3 la 1 array chua cac obj data
+    [
+        {
+            id: ...,
+            name: ....
+        }
+    ]
+ */
+
+/*
+    data luu trong firebase la 1 obj, chua cac data(voi moi data co 1 key)
+    {
+        my-id: {
+
+        }...
+    }
+*/
 
 export default database;
