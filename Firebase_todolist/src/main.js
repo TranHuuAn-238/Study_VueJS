@@ -9,6 +9,19 @@ import './assets/style.css';
 
 import database from './config/firebase';
 
+var tasksRef = database.ref('tasks');
+
+// retrieve data from firebase
+tasksRef.on('value', function(snapshot) {
+    // console.log("snap", snapshot);
+    console.log(snapshot.toJSON());
+    store.commit('SET_LIST_TASKS', snapshot.toJSON());
+    // snapshot.forEach(function(childSnapshot) {
+    //   var childData = childSnapshot.val();
+    //   console.log(childData);
+    // });
+});
+
 Vue.use(DateTime);
 
 new Vue({
