@@ -8,12 +8,15 @@ import ListTasks from '../pages/ListTasks';
 import CreateTask from '../pages/CreateTask';
 import EditTask from '../pages/EditTask';
 
+import { ifAuthenticated, ifNotAuthenticated} from '../plugins/authenticate'
+
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/',
         component: KanBanBoard,
+        beforeEnter: ifAuthenticated,
         children: [
             {
                 path: '',
@@ -35,11 +38,13 @@ const routes = [
     {
         path: '/login',
         name: 'login-page',
+        beforeEnter: ifNotAuthenticated,
         component: Login
     },
     {
         path: '/register',
         name: 'register-page',
+        beforeEnter: ifNotAuthenticated,
         component: Register
     }
 ]

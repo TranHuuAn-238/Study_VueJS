@@ -26,11 +26,11 @@
 
 import * as firebase from 'firebase/app';
 import firebaseConfig from './firebaseConfig';
+
+import "firebase/auth";
 import "firebase/database";
 
 firebase.initializeApp(firebaseConfig);
-
-const database = firebase.database();
 
 // database.ref('tasks/dsadad-sadas-id').set({
 //     username: 'edit test',
@@ -68,4 +68,14 @@ const database = firebase.database();
     }
 */
 
-export default database;
+export const auth = firebase.auth();
+export const database = firebase.database();
+export const tasksRef = database.ref('tasks');
+export const usersRef = database.ref('users');
+// export default database;
+
+// auth.signOut();
+// console.log("auth = ", auth.currentUser);
+// setTimeout(() => {
+//     console.log("auth = ", auth.currentUser);
+// }, 5000);

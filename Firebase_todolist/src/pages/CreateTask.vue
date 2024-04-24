@@ -55,14 +55,14 @@
                     <label>Thành viên đảm nhận</label>
                     <select class="input-group input-select" v-model="email_member">
                         <option value="" disabled>Thành viên</option>
-                        <!-- <option 
-                            v-for="email in getListEmailuser"
-                            v-bind:key="email"
-                            v-bind:value="email">{{ email.split('@')[0] }}</option> -->
-                        <option value="luctc@gmail.com">@luctc</option>
+                        <option 
+                            v-for="email in getListEmailUser"
+                            :key="email"
+                            :value="email">{{ email.split('@')[0] }}</option>
+                        <!-- <option value="luctc@gmail.com">@luctc</option>
                         <option value="khang@gmail.com">@khang</option>
                         <option value="nam@gmail.com">@nam</option>
-                        <option value="tam@gmail.com">@tam</option>
+                        <option value="tam@gmail.com">@tam</option> -->
                     </select>
                 </div>
                 <div class="col-xs-12 btn-submit-create">
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 import { STATUS_CONFIG, PRIORITY_CONFIG, TEAM_CONFIG } from '../config/const';
 import PageTitle from '../components/PageTitle';
@@ -103,6 +103,11 @@ export default {
             PRIORITY_CONFIG,
             TEAM_CONFIG
         }
+    },
+    computed: {
+        ...mapGetters([
+            'getListEmailUser'
+        ]),
     },
     methods: {
         ...mapActions([
