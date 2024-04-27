@@ -174,6 +174,27 @@ const store = new Vuex.Store({
                     error: error.message
                 }
             }
+        },
+        async getTaskById({ commit }, id) {
+            try {
+                let result = await tasksRef.child(id).once('value');
+                if (result.val()) {
+                    return {
+                        ok: true,
+                        task: result.val()
+                    }
+                }
+                return {
+                    ok: false,
+                    task: null,
+                    error: null
+                }
+            } catch (e) {
+                return {
+                    ok: false,
+                    error: e.message
+                }
+            }
         }
     }
 });
