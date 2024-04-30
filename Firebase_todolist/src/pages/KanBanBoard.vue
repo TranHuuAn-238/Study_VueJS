@@ -26,6 +26,7 @@
 import HomeHeader from '../components/HomeHeader';
 import MainHeader from '../components/MainHeader';
 import Sidebar from '../components/Sidebar';
+import { mapGetters, mapActions } from "vuex";
 
 export default {
     name: 'kan-ban-board',
@@ -39,6 +40,19 @@ export default {
 
         }
     },
+    computed: {
+        ...mapGetters([
+            'getCurrentUser'
+        ])
+    },
+    methods: {
+        ...mapActions([
+            'getUserCustomField'
+        ])
+    },
+    mounted() {
+        this.getUserCustomField();
+    }
 }
 </script>
 

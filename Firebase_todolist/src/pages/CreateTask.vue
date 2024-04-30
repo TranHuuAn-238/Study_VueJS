@@ -106,7 +106,8 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'getListEmailUser'
+            'getListEmailUser',
+            'getCurrentUser'
         ]),
     },
     methods: {
@@ -115,7 +116,7 @@ export default {
         ]),
         handleCreateTask() {
             let objData = {
-                auth: 'anth@gmail.com',
+                auth: this.getCurrentUser.email,
                 title: this.title,
                 description: this.description,
                 name: this.name,

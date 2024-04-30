@@ -10,7 +10,8 @@ const store = new Vuex.Store({
     state: {
         currentUser: {
             email: '',
-            uid: ''
+            uid: '',
+            role: ''
         },
         listUsers: {},
         listTasks: {},
@@ -22,6 +23,9 @@ const store = new Vuex.Store({
                 return true;
             }
             return false;
+        },
+        isAdmin: state => {
+            return state.currentUser.role === 'admin';
         },
         getListTaskFilter: (state) => {
             const listTasks = state.listTasks;
@@ -53,6 +57,9 @@ const store = new Vuex.Store({
                 done
             }
         },
+        getCurrentUser: state => {
+            return state.currentUser;
+        },
         getListEmailUser: state => {
             const listUsers = state.listUsers;
             let arrEmails = [];
@@ -75,6 +82,12 @@ const store = new Vuex.Store({
         },
         SET_CURRENT_USER: (state, user) => {
             state.currentUser = user;
+        },
+        SET_ROLE: (state, data) => {
+            state.currentUser = {
+                ...state.currentUser,
+                role: data.role
+            }
         }
     },
     actions: {
@@ -188,6 +201,29 @@ const store = new Vuex.Store({
                     ok: false,
                     task: null,
                     error: null
+                }
+            } catch (e) {
+                return {
+                    ok: false,
+                    error: e.message
+                }
+            }
+        },
+        async getUserCustomField({ commit, state }) {
+            let uid = state.currentUser.uid;
+            try {
+                let result = await usersRef.child(uid).once('value');
+                if (result.val()) {
+                    // set role
+                    commit('SET_ROLE', result.val());
+                    return {
+                        ok: true,
+                        data: result.val()
+                    }
+                }
+                return {
+                    ok: false,
+                    data: null
                 }
             } catch (e) {
                 return {
